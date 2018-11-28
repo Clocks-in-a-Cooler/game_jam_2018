@@ -24,7 +24,7 @@ Bubble.prototype.get_new_position = function(lapse) {
     
     this.x += lapse * this.speed * this.vector.x;
     this.y += lapse * this.speed * this.vector.y;
-}
+};
 
 Bubble.prototype.draw = function(context) {
     context.save();
@@ -32,12 +32,12 @@ Bubble.prototype.draw = function(context) {
     var alpha = 1 - (this.lifetime / this.max_lifetime);
     
     context.beginPath();
-    context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    context.arc(relative.x(this.x), relative.y(this.y), this.radius, 0, 2 * Math.PI);
     context.fillStyle = "rgba(255, 255, 255, " + alpha + ")";
     context.fill();
     
     context.restore();
-}
+};
 
 Bubble.prototype.collision = function() {
     //do nothing

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <style>
-    </style>
     <!--- ****please test these!!**** --->
     <script src="js/main_panel_manager.js"></script>
     <script src="js/buildings.js"></script>
@@ -19,6 +16,7 @@
     <script src="js/asteroid.js"></script>
     <script src="js/bubble.js"></script>
     <script src="js/bullet.js"></script>
+    <script src="js/player_planet.js"></script>
     <script src="js/player_ship.js"></script>
     
     <!---
@@ -38,11 +36,11 @@
             
             </div>
         </div>
+        <canvas id="canv"></canvas>
         <div id="main_panel">
             
         </div>
     </div>
-    <canvas id="canv"></canvas>
     <script>
         var canv;
         window.onload = function()
@@ -50,7 +48,7 @@
             Engine.initialize();
             canv = document.getElementById("canv");
             
-            Engine.init_explore(canv, window.innerWidth, window.innerHeight);
+            Engine.init_explore(canv, 500, 500);
             Engine.activate_keys();
             Engine.animate();
         };

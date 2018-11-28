@@ -5,6 +5,7 @@ var City = (
 	{
 		var INCOME_INTERVAL = 1000;
 		var INCOME_RATE = 1;
+		var BUY_SCALE = 1;
 		var city = {};
 		var wares = {};
 		var utility = {};
@@ -100,8 +101,8 @@ var City = (
 				}
 				// add
 				City.add_building(name,1);
-				let result = Math.floor(Math.random() * Math.floor(5)) + 1;
-				switch (result) {
+				let msgResult = Math.floor(Math.random() * Math.floor(5)) + 1;
+				switch (msgResult) {
 					case 1:
 						Engine.notify(buildings[name].build_message);
 						break;

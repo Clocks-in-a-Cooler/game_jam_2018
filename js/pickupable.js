@@ -8,7 +8,7 @@ function Pickupable(x, y) {
 }
 
 Pickupable.prototype.get_new_position = function(lapse) {
-    //these don't move...yet
+    //these don't move, unless the player is nearby
     
     //"magnetic" effect
     if (Math.hypot(this.x - Player_ship.pos.x, this.y - Player_ship.pos.y) < 50) {
@@ -36,7 +36,7 @@ Pickupable.prototype.get_new_position = function(lapse) {
 };
 
 Pickupable.prototype.draw = function(context) {
-    context.drawImage(Assets.pickupable, this.x - this.offset, this.y - this.offset);
+    context.drawImage(Assets.pickupable, relative.x(this.x - this.offset), relative.y(this.y - this.offset));
 };
 
 Pickupable.prototype.pickup = function() {
@@ -44,4 +44,5 @@ Pickupable.prototype.pickup = function() {
     Engine.log("a resource at (" + this.x + ", " + this.y + ") has been picked up.");
     
     //insert stuff below
+	events["explore_asteroid_mining_pickup_1"]["event"]();
 };

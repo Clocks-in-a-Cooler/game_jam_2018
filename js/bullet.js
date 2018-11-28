@@ -28,7 +28,7 @@ Bullet.prototype.get_new_position = function(lapse) {
 };
 
 Bullet.prototype.draw = function(context) {
-    context.drawImage(Assets.bullet, this.x - 2.5, this.y - 2.5);
+    context.drawImage(Assets.bullet, relative.x(this.x - 2.5), relative.y(this.y - 2.5));
 };
 
 Bullet.prototype.collision = function() {
