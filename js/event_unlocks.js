@@ -179,7 +179,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("decinium").number>=1000)
+			if (City.get_ware("decinium").number>=10)
 			{
 				return true;
 			}
@@ -191,9 +191,10 @@ var events = {
 			build_panel.appendChild(MPM.create_button("Repair ship"
 				,function()
 				{
-					if (City.get_ware("decinium").number >= 10000 && City.get_ware("battery").number >= 100 && City.get_ware("iron").number >= 2000 && City.get_ware("silicon").number >= 5000 && City.get_ware("plastic").number >= 5000 )
+					if (City.get_ware("crovanite").number >= 10000 && City.get_ware("decinium").number >= 3000 && City.get_ware("battery").number >= 100 && City.get_ware("iron").number >= 2000 && City.get_ware("silicon").number >= 5000 && City.get_ware("plastic").number >= 5000 )
 					{
-						City.add_ware("decinium",-10000);
+						City.add_ware("crovanite",-10000);
+						City.add_ware("decinium",-3000);
 						City.add_ware("battery",-100);
 						City.add_ware("iron",-2000);
 						City.add_ware("silicon",-5000);
@@ -202,9 +203,13 @@ var events = {
 						MPM.remove_element("initialize_repair_ship_button");
 						events["initialize_explore_button"]["event"]();
 					}
+					else 
+					{
+						Engine.notify("You don't have enough resources.");
+					}
 				}
 				,"initialize_repair_ship_button",["light_button"]
-				,MPM.create_tooltip("10000 decinium, 100 batteries, 2000 iron, 5000 silicon, 5000 plastic")));
+				,MPM.create_tooltip("10000 crovanite 3000 decinium, 100 batteries, 2000 iron, 5000 silicon, 5000 plastic")));
 			
 			Engine.remove_trigger("initialize_repair_ship_button");
 			Engine.notify("The mysterious being returns, and guides you to a dark corner you've not seen before. There is a ship here, and you must repair it.");
@@ -235,7 +240,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("raw_iron").number >= 100)
+			if (City.get_ware("raw_iron").number >= 50)
 			{
 				return true;
 			}
@@ -264,7 +269,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("crovanite").number >= 500)
+			if (City.get_ware("iron").number >= 10)
 			{
 				return true;
 			}
@@ -343,7 +348,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("helium3").number >= 1000 && City.get_ware("crovanite").number >= 5000 && City.get_ware("iron").number >= 5000)
+			if (City.get_ware("helium3").number >= 1000 && City.get_ware("crovanite").number >= 5000 && City.get_ware("iron").number >= 500)
 			{
 				return true;
 			}
