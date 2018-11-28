@@ -2,8 +2,7 @@
 <html>
 <head>
     
-    <style>
-    </style>
+    <meta charset="utf-8" />
     <!--- **** ADR-style files**** --->
     <script src="js/main_panel_manager.js"></script>
     <script src="js/buildings.js"></script>
@@ -16,24 +15,17 @@
     <!--- **** Everyone's Sky-style files**** --->
     <script src="js/assets.js"></script>
     <script src="js/pickupable.js"></script>
+    <script src="js/asteroid.js"></script>
     <script src="js/bubble.js"></script>
     <script src="js/bullet.js"></script>
+    <script src="js/player_planet.js"></script>
     <script src="js/player_ship.js"></script>
     
-    <script>
-        var canv;
-        window.onload = function()
-        {
-            Engine.initialize();
-            canv = document.getElementById("canv");
-        };
-    </script>
     <!---
         note: not all files have been added. when they are tested and working,
         they will be added here.
     --->
     
-    <!--- unchanged --->
     <link rel="stylesheet" type="text/css" href="style.css">
     
 
@@ -49,14 +41,21 @@
         <div id="main_panel">
             
         </div>
+        
+        <div id="explore_panel" class="invisible">
+            <canvas id="canv"></canvas>
+        </div>
     </div>
-    <canvas id="canv"></canvas>
+    
     <script>
+        //script to execute once the document has loaded
         var canv;
+        var explore;
         window.onload = function()
         {
             Engine.initialize();
             canv = document.getElementById("canv");
+            explore_panel = document.getElementById("explore_panel");
         };
     </script>
 </body>

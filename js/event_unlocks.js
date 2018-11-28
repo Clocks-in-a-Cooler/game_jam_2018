@@ -82,7 +82,7 @@ var events = {
 						Engine.notify("Hey! Look! There's shiny rocks everywhere!.");
 						events["initialize_mining"]["event"]();
 					}
-					
+					MPM.time_out(bot_button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"initialize_solar_panel_setup_button",["light_button"]));
 		}
@@ -144,7 +144,7 @@ var events = {
 		
 		"event": function()
 		{
-			Engine.notify("A strange old woman appears out of the fog. She wants 100 pieces of crovanite and 10 batteries, she says she can find a solar panel.");
+			Engine.notify("A strange being appears out of nowhere. It wants 100 pieces of crovanite and 10 batteries, It says it can find a solar panel.");
 			var trade_button = MPM.create_button("Trade for a Solar Panel"
 				,function()
 				{
@@ -154,6 +154,7 @@ var events = {
 						City.add_ware("crovanite",-100);
 						City.add_ware("photovoltaic_panel",1);
 					}
+					MPM.time_out(trade_button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"trade_button",["light_button"]
 				,MPM.create_tooltip("100 pieces of crovanite and 10 batteries for 1 solar panel."));
@@ -163,13 +164,75 @@ var events = {
 				,function()
 				{
 					if(City.buy_building("solar_panel")){
-						Engine.notify("A little more to the right?");		
+						//Engine.notify("A little more to the right?");		
 					}
 				}
 				,"initialize_solar_panel_setup_button2",["light_button"]));
 			
 			Engine.remove_trigger("initialize_trade_solar_panel");
+			Engine.add_trigger("initialize_repair_ship_button");
 			
+		}
+	},
+	
+	"initialize_repair_ship_button":
+	{
+		"trigger": function()
+		{
+			if (City.get_ware("decinium").number>=10)
+			{
+				return true;
+			}
+			return false;
+		},
+		
+		"event": function()
+		{
+			build_panel.appendChild(MPM.create_button("Repair ship"
+				,function()
+				{
+					if (City.get_ware("crovanite").number >= 10000 && City.get_ware("decinium").number >= 3000 && City.get_ware("battery").number >= 100 && City.get_ware("iron").number >= 2000 && City.get_ware("silicon").number >= 5000 && City.get_ware("plastic").number >= 5000 )
+					{
+						City.add_ware("crovanite",-10000);
+						City.add_ware("decinium",-3000);
+						City.add_ware("battery",-100);
+						City.add_ware("iron",-2000);
+						City.add_ware("silicon",-5000);
+						City.add_ware("plastic",-5000);
+						Engine.notify("With a bit of Engine grease, you manage to fix the ship. Let's hope it's seaworthy.");
+						MPM.remove_element("initialize_repair_ship_button");
+						events["initialize_explore_button"]["event"]();
+					}
+					else 
+					{
+						Engine.notify("You don't have enough resources.");
+					}
+				}
+				,"initialize_repair_ship_button",["light_button"]
+				,MPM.create_tooltip("10000 crovanite 3000 decinium, 100 batteries, 2000 iron, 5000 silicon, 5000 plastic")));
+			
+			Engine.remove_trigger("initialize_repair_ship_button");
+			Engine.notify("The mysterious being returns, and guides you to a dark corner you've not seen before. There is a ship here, and you must repair it.");
+		}
+	},
+	
+	"initialize_explore_button":
+	{
+		"trigger": function()
+		{
+			
+		},
+		
+		"event": function()
+		{
+			build_panel.appendChild(MPM.create_button("Explore"
+				,function()
+				{
+					Engine.switch_explore();
+					Engine.notify("The old engine creaks and cracks, but it flys!");
+				}
+				,"initialize_explore_button",["light_button"]
+				,MPM.create_tooltip("Fly!")));
 		}
 	},
 	
@@ -177,7 +240,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("raw_iron").number >= 100)
+			if (City.get_ware("raw_iron").number >= 50)
 			{
 				return true;
 			}
@@ -190,6 +253,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("iron_smelter");
+					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_iron_smelter",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["iron_smelter"].buy())));
@@ -205,7 +269,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("crovanite").number >= 500)
+			if (City.get_ware("iron").number >= 10)
 			{
 				return true;
 			}
@@ -218,6 +282,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("mining_depot");
+					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_mining_depot",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["mining_depot"].buy())));
@@ -243,6 +308,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("solar_distiller");
+					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_solar_distiller",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["solar_distiller"].buy())));
@@ -268,6 +334,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("helium_collector");
+					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_helium_collector",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["helium_collector"].buy())));
@@ -281,7 +348,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("helium3").number >= 1000 && City.get_ware("crovanite").number >= 5000 && City.get_ware("iron").number >= 5000)
+			if (City.get_ware("helium3").number >= 1000 && City.get_ware("crovanite").number >= 5000 && City.get_ware("iron").number >= 500)
 			{
 				return true;
 			}
@@ -294,11 +361,106 @@ var events = {
 				,function()
 				{
 					City.buy_building("helium_fusion_plant");
+					MPM.time_out(button, MPM.DEFAULT_COOLDOWN*3);
 				}
 				,"buy_helium_fusion_plant",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["helium_fusion_plant"].buy())));
 			build_panel.appendChild(button);
 			Engine.remove_trigger("unlock_helium_fusion_plant");
+		}
+	},
+	
+	// these triggers loop 
+	"shutoff_helium_fusion_plant": 
+	{
+		"trigger": function()
+		{
+			if (City.get_ware("helium3").number <= 0 || City.get_ware("water").number <= 0)
+			{
+				return true;
+			}
+			return false;
+		},
+		
+		"event": function()
+		{
+			// check global var 
+			if (Engine.get_event_global("helium_plant_shutoff") === null)
+			{
+				Engine.add_event_global("helium_plant_shutoff",true);
+				City.add_utility_capacity('energy',-100);
+			}
+			else
+			{
+				if (Engine.get_event_global("helium_plant_shutoff"))
+				{
+					
+				}
+				else 
+				{
+					Engine.set_event_global("helium_plant_shutoff",true);
+					City.add_utility_capacity('energy',-100);
+				}
+			}
+		}
+	},
+	
+	"restart_helium_fusion_plant":
+	{
+		"trigger": function()
+		{
+			if (City.get_ware("helium3").number > 0 && City.get_ware("water").number > 0)
+			{
+				return true;
+			}
+			return false;
+		},
+		
+		"event": function()
+		{
+			// check global var 
+			if (Engine.get_event_global("helium_plant_shutoff") === null)
+			{
+				Engine.add_event_global("helium_plant_shutoff",false);
+				City.add_utility_capacity('energy',100);
+			}
+			else
+			{
+				if (Engine.get_event_global("helium_plant_shutoff"))
+				{
+					Engine.set_event_global("helium_plant_shutoff",false);
+					City.add_utility_capacity('energy',100);
+				}
+				else 
+				{
+					
+				}
+			}
+		}
+	},
+	
+	"explore_asteroid_mining_pickup_1":
+	{
+		"trigger": function()
+		{
+			return true;
+		},
+		
+		"event": function()
+		{
+			let added = [Math.floor(Math.random()*10),Math.floor(Math.random()*5)];
+			// adds stuff directly to warehouse! 
+			City.add_ware("raw_iron",added[0]);
+			City.add_ware("raw_decinium",added[1]);
+			Engine.notify("Collected " + added[0] + " iron ore and " + added[1] + " decinium ore."); 
+			Engine.log("Pickup " + added[0] + " iron ore and " + added[1] + " decinium ore.");
+			if (Math.random() < 0.025)
+			{
+				let added_rare = [Math.floor(Math.random()*8)];
+				City.add_ware("sternium",added_rare[0]);
+				Engine.notify("We also found " + added_rare[0] + " sternium ore.");
+				Engine.log("Pickup " + added_rare[0] + " sternium ore.");
+			}
 		}
 	},
 }

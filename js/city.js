@@ -5,6 +5,7 @@ var City = (
 	{
 		var INCOME_INTERVAL = 1000;
 		var INCOME_RATE = 1;
+		var BUY_SCALE = 1;
 		var city = {};
 		var wares = {};
 		var utility = {};
@@ -100,7 +101,28 @@ var City = (
 				}
 				// add
 				City.add_building(name,1);
-				Engine.notify(buildings[name].build_message);
+				let msgResult = Math.floor(Math.random() * Math.floor(5)) + 1;
+				switch (msgResult) {
+					case 1:
+						Engine.notify(buildings[name].build_message);
+						break;
+					case 2:
+						Engine.notify(buildings[name].build_message_2);
+						break;
+					case 3:
+						Engine.notify(buildings[name].build_message_3);
+						break;
+					case 4:
+						Engine.notify(buildings[name].build_message_4);
+						break;
+					case 5:
+						Engine.notify(buildings[name].build_message_5);
+						break;
+					default:
+						Engine.notify(buildings[name].build_message);
+						break;
+				}
+				//Engine.notify(buildings[name].build_message);
 				// onbuy fcn
 				if (buildings[name]["on_buy"])
 				{
@@ -114,6 +136,8 @@ var City = (
 				if (wares[name]["number"] || wares[name]["number"] === 0) // so that even if wares[name] is 0, it will still register
 				{
 					wares[name]["number"] = wares[name]["number"] + number;
+					// Check if less than 0
+					if (wares[name]["number"] < 0){wares[name]["number"] = 0};
 					// also do DOM
 					MPM.set_number(name+"_display_number",wares[name]["number"]);
 				}
@@ -170,6 +194,9 @@ var City = (
 			{
 				// finite resources
 				
+				// random doubling, crit!
+				// please add in that text thing that says crit as well, if possible.
+				
 				// random gain checks
 				City.add_ware("crovanite",Math.floor(Math.random()*10));
 				City.add_ware("silicon",Math.floor(Math.random()*2));
@@ -179,7 +206,16 @@ var City = (
 				if(Math.floor(Math.random()*11)>9)
 				{
 					City.add_ware("battery",1);
-					Engine.notify("Found a nice battery just sitting there.");
+				}
+				
+				if(Math.random() <= 0.1)
+				{
+					City.add_ware("crovanite",Math.floor(Math.random()*10));
+					City.add_ware("silicon",Math.floor(Math.random()*2));
+					City.add_ware("plastic",Math.floor(Math.random()*3));
+					City.add_ware("raw_iron",Math.floor(Math.random()*2));
+					City.add_ware("raw_decinium",Math.floor(Math.random()*2));
+					City.add_ware("battery",1);
 				}
 			},
 			
@@ -215,6 +251,16 @@ var City = (
 			get_utilities: function()
 			{
 				return utility;
+			},
+			
+			// DEBUGGING
+			test_add_all: function(num)
+			{
+				var number = num || 10000;
+				for (let ware in resources)
+				{
+					City.add_ware(ware, number);
+				}
 			},
 		}
 	} // 

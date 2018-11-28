@@ -28,6 +28,7 @@ var Player_ship = (function() {
         fire:      false,
     };
     
+    //I'm retiring this; maybe use it somewhere else someday
     var wrap = function() {
         if (POS.x < 0) {
             POS.x += Engine.canvas_x;
@@ -91,6 +92,14 @@ var Player_ship = (function() {
         };
     }
     
+    function keep_in_bounds() {
+        POS.x = Math.max(POS.x, 0);
+        POS.y = Math.max(POS.y, 0);
+        
+        POS.x = Math.min(POS.x, Engine.map_size.x);
+        POS.y = Math.min(POS.y, Engine.map_size.y);
+    }
+    
     function fire_bullet() {
         return new Bullet(POS.x, POS.y, Math.cos(angle), Math.sin(angle));
     }
@@ -123,13 +132,13 @@ var Player_ship = (function() {
                 time_since_fire = 0;
             }
             
-            wrap();
+            keep_in_bounds();
         },
         
         draw: function(context) {
             context.save();
             
-            context.translate(POS.x, POS.y);
+            context.translate(relative.x(POS.x), relative.y(POS.y));
             context.rotate(angle);
             context.drawImage(Assets.player_ship, -SHIP_WIDTH_OFFSET, -SHIP_HEIGHT_OFFSET);
             
@@ -153,3 +162,26 @@ var Player_ship = (function() {
         set thrust(t) { set_thrust(t); },
     };
 })();
+
+function draw_arrow(context) {
+    //for drawing the little arrow that guides the player home
+    
+    //find the angle. TRIG all over again! *fun*!
+    //tangent's a weird one, so i'll use sine.
+    var angle;
+    var opp = Player_ship.pos.y - Player_planet.y;
+    var hyp = Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y);
+    
+    angle = Math.asinh(opp / hyp);
+    
+    var draw_x = Math.cos(angle) * 100 + (Engine.viewport.width / 2);
+    var draw_y = Math.sin(angle) * 100 + (Engine.viewport.height / 2);
+    
+    context.save();
+    
+    context.translate(draw_x, draw_y);
+    context.rotate(angle);
+    context.drawImage(Assets.arrow, -4, -8);
+    
+    context.restore();
+}
