@@ -194,6 +194,9 @@ var City = (
 			{
 				// finite resources
 				
+				// random doubling, crit!
+				// please add in that text thing that says crit as well, if possible.
+				
 				// random gain checks
 				City.add_ware("crovanite",Math.floor(Math.random()*10));
 				City.add_ware("silicon",Math.floor(Math.random()*2));
@@ -203,7 +206,16 @@ var City = (
 				if(Math.floor(Math.random()*11)>9)
 				{
 					City.add_ware("battery",1);
-					Engine.notify("Found a nice battery just sitting there.");
+				}
+				
+				if(Math.random() <= 0.1)
+				{
+					City.add_ware("crovanite",Math.floor(Math.random()*10));
+					City.add_ware("silicon",Math.floor(Math.random()*2));
+					City.add_ware("plastic",Math.floor(Math.random()*3));
+					City.add_ware("raw_iron",Math.floor(Math.random()*2));
+					City.add_ware("raw_decinium",Math.floor(Math.random()*2));
+					City.add_ware("battery",1);
 				}
 			},
 			

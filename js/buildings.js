@@ -27,7 +27,7 @@ var buildings = {
         },
         'on_buy': function()
         {
-            City.add_utility_capacity('energy',1);
+            City.add_utility_capacity('energy',2);
         },
     },
     
@@ -77,10 +77,10 @@ var buildings = {
         'buy': function()
         {
             return {
-                'crovanite': 500,
+                'crovanite': 1000,
                 'silicon': 500,
                 'plastic': 250,
-                'iron': 400,
+                'iron': 50,
             };
         },
         'utility': function()
@@ -109,7 +109,8 @@ var buildings = {
         'buy': function()
         {
             return {
-                'crovanite': 100,
+                'crovanite': 10000,
+				'raw_iron': 200,
                 'silicon': 100,
                 'plastic': 50,
             };
@@ -117,7 +118,7 @@ var buildings = {
         'utility': function()
         {
             return {
-                'energy': 5,
+                'energy': 3,
             }
         },
         'produce': function()
@@ -149,8 +150,9 @@ var buildings = {
         'buy': function()
         {
             return {
+				'crovanite': 1000,
                 'decinium': 200,
-                'iron': 300,
+                'iron': 100,
                 'plastic': 500,
             };
         },
@@ -164,7 +166,7 @@ var buildings = {
         'name': "Fusion Plant",
         'button': null,
         'maximum': 1,
-        'tooltip_message': "Turns He3 and H2O into Q.",
+        'tooltip_message': "Turns 1 He3 and 1 H2O into 100 Q.",
         'build_message': "(Almost) free energy!",
         'build_message_2': "One small step, one giant leap, blah blah.",
         'build_message_3': "One small step, one giant leap, blah.",
@@ -174,12 +176,12 @@ var buildings = {
         'buy': function()
         {
             return {
-                'crovanite': 5000,
+                'crovanite': 10000,
                 'silicon': 500,
-                'iron': 5000,
+                'iron': 500,
                 'plastic': 200,
-                'helium3': 10000,
-                'water': 1000,
+                'helium3': 100,
+                'water': 100,
             };
         },
         'produce': function()
