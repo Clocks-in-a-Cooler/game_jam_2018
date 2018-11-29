@@ -186,7 +186,7 @@ var Engine = (function() {
             var message_text = document.createTextNode(message);
             new_message.appendChild(message_text);
 
-            message_panel.insertBefore(new_message, message_panel.childNodes[0]);
+            message_panel.insertBefore(new_message, message_panel.childNodes[1]);
         },
         
         switch_explore: function(message) {
