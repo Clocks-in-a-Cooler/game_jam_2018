@@ -233,4 +233,28 @@ var buildings = {
         'build_message_5': "One small step, one giant.",
         'max_message': "",
     },
+	
+	'manufactoring_plant': {
+        'name': "Manufactoring Plant",
+        'button': null,
+        'maximum': 10,
+        'tooltip_message': "Put those resources to good use, make some nice polished shinies!",
+        'build_message': "",
+        'build_message_2': "One small step, one giant leap, blah blah.",
+        'build_message_3': "One small step, one giant leap, blah.",
+        'build_message_4': "One small step, one giant leap.",
+        'build_message_5': "One small step, one giant.",
+        'max_message': "",
+        'buy': function()
+        {
+            return {
+                'decinium': 500,
+                'crovanite': 250,
+                'silicon': 100,
+                'iron': 50,
+                'plastic': 200,
+                'water': 50,
+            };
+        },
+    },
 }

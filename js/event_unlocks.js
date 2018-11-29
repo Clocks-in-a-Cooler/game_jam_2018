@@ -16,7 +16,7 @@ var events = {
 				MPM.create_button("Where am I?",
 					function()
 					{
-						Engine.notify("That's irrelevant for the moment, what you need to do is as following:");
+						Engine.notify("That's irrelevant for the moment. What you need to do is as following:");
 						MPM.remove_element("hello_button");
 						events["initialize_solar_panel_pickup"]["event"]();
 					},"hello_button",["light_button"]));
@@ -34,10 +34,10 @@ var events = {
 		"event": function()
 		{
 			let solar_panels = 2;
-			let pickup_button = MPM.create_button("A Solar Panel, take it.",
+			let pickup_button = MPM.create_button("Here is a Solar Panel, take it.",
 				function()
 				{
-					Engine.notify("Yup, that's a solar panel alright. ")
+					Engine.notify("Yup, that's a solar panel alright.")
 					solar_panels -= 1;
 					City.add_ware("photovoltaic_panel",1);
 					if(solar_panels <= 0)
@@ -60,7 +60,7 @@ var events = {
 		
 		"event": function()
 		{
-			let bot_button = MPM.create_button("Build a mining bot"
+			let bot_button = MPM.create_button("Build a Mining Bot"
 				,function()
 				{
 					City.buy_building("minerbot");
@@ -79,7 +79,6 @@ var events = {
 						MPM.remove_element('initialize_solar_panel_setup_button');	
 						Engine.notify("A little more to the right?");
 						Engine.notify("That's all of them.");
-						Engine.notify("Hey! Look! There's shiny rocks everywhere!.");
 						events["initialize_mining"]["event"]();
 					}
 					MPM.time_out(bot_button, MPM.DEFAULT_COOLDOWN);
