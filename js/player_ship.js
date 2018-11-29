@@ -98,6 +98,15 @@ var Player_ship = (function() {
         
         POS.x = Math.min(POS.x, Engine.map_size.x);
         POS.y = Math.min(POS.y, Engine.map_size.y);
+        
+        //reset the vectors if the player's ship is at the edge
+        if (POS.x == 0 || POS.x == Engine.map_size.x) {
+            VECTOR.x = 0;
+        }
+        
+        if (POS.y == 0 || POS.y == Engine.map_size.y) {
+            VECTOR.y = 0;
+        }
     }
     
     function fire_bullet() {

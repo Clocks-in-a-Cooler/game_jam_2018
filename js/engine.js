@@ -197,7 +197,7 @@ var Engine = (function() {
                 Engine.deact_explore();
                 Engine.deactivate_keys();
                 exploring = false;
-				Engine.log("Initializing city...");
+                Engine.log("Initializing city...");
             }
             else
             {
@@ -207,7 +207,7 @@ var Engine = (function() {
                 Engine.animate();
                 Engine.activate_keys();
                 exploring = true;
-				Engine.log("Initializing explore...");
+                Engine.log("Initializing explore...");
             }
         },
         
@@ -267,6 +267,11 @@ var Engine = (function() {
             objects.forEach(function(o) {
                 o.draw(context);
             });
+            
+            //debug
+            context.font      = "14pt Times New Roman";
+            context.fillStyle = "white";
+            context.fillText("(" + Math.trunc(Player_ship.pos.x) + ", " + Math.trunc(Player_ship.pos.y) + "), Objects: " + objects.length, 100, 50);
             
             //draw_arrow(context);
         },
