@@ -28,40 +28,8 @@ var Player_ship = (function() {
         fire:      false,
     };
     
-    //I'm retiring this; maybe use it somewhere else someday
-    var wrap = function() {
-        if (POS.x < 0) {
-            POS.x += Engine.canvas_x;
-        }
-        
-        if (POS.x > Engine.canvas_x) {
-            POS.x = POS.x % Engine.canvas_x;
-        }
-        
-        if (POS.y < 0) {
-            POS.y += Engine.canvas_y;
-        }
-        
-        if (POS.y > Engine.canvas_y) {
-            POS.y = POS.y % Engine.canvas_y;
-        }
-    };
-    
     var SHIP_WIDTH_OFFSET  = 15;
     var SHIP_HEIGHT_OFFSET = 10;
-    
-    var in_orbit  = false;
-    var in_combat = false;
-    
-    var weapons   = [];
-    var abilities = []; //store functions for them here.
-    
-    //changes the engine...of the ship, not the game
-    function set_thrust(t) {
-        //the thrust to friction ratio is 0.4, by the way.
-        THRUST = t;
-        Engine.log("player ship's THRUST changed to " + t + ".");
-    }
     
     //movement functions
     function rotate(lapse) {
@@ -98,6 +66,15 @@ var Player_ship = (function() {
         
         POS.x = Math.min(POS.x, Engine.map_size.x);
         POS.y = Math.min(POS.y, Engine.map_size.y);
+        
+        //reset the vectors if the player's ship is at the edge
+        if (POS.x == 0 || POS.x == Engine.map_size.x) {
+            VECTOR.x = 0;
+        }
+        
+        if (POS.y == 0 || POS.y == Engine.map_size.y) {
+            VECTOR.y = 0;
+        }
     }
     
     function fire_bullet() {
@@ -150,16 +127,11 @@ var Player_ship = (function() {
         get angle() { return angle; },
         get pos() { return POS; },
         
-        get weapons() { return weapons; },
-        get abilities() { return abilities; },
-        
         set forward(a)   { keys.forward   = a; },
         set rot_left(a)  { keys.rot_left  = a; },
         set rot_right(a) { keys.rot_right = a; },
         set reverse(a)   { keys.reverse = a; },
         set fire(a)      { keys.fire = a; },
-        
-        set thrust(t) { set_thrust(t); },
     };
 })();
 

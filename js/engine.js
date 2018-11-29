@@ -154,7 +154,7 @@ var Engine = (function() {
     }
     
     return {
-        _log: true,
+        _log: false, //turn off logging
         log: function(msg) {
             if (this._log) {
                 console.log(msg);
@@ -186,7 +186,7 @@ var Engine = (function() {
             var message_text = document.createTextNode(message);
             new_message.appendChild(message_text);
 
-            message_panel.insertBefore(new_message, message_panel.childNodes[0]);
+            message_panel.insertBefore(new_message, message_panel.childNodes[1]);
         },
         
         switch_explore: function(message) {
@@ -197,7 +197,7 @@ var Engine = (function() {
                 Engine.deact_explore();
                 Engine.deactivate_keys();
                 exploring = false;
-				Engine.log("Initializing city...");
+                Engine.log("Initializing city...");
             }
             else
             {
@@ -207,7 +207,7 @@ var Engine = (function() {
                 Engine.animate();
                 Engine.activate_keys();
                 exploring = true;
-				Engine.log("Initializing explore...");
+                Engine.log("Initializing explore...");
             }
         },
         
@@ -267,6 +267,11 @@ var Engine = (function() {
             objects.forEach(function(o) {
                 o.draw(context);
             });
+            
+            //debug
+            context.font      = "14pt Times New Roman";
+            context.fillStyle = "white";
+            context.fillText("(" + Math.trunc(Player_ship.pos.x) + ", " + Math.trunc(Player_ship.pos.y) + "), Objects: " + objects.length, 100, 50);
             
             //draw_arrow(context);
         },
