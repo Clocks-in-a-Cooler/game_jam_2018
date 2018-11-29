@@ -17,7 +17,7 @@ var resources = {
 	},
 	'plastic': {
 		'name': "Plastic",
-		'tooltip_message': "Scavanged from who knows where. Is that a yogurt container?",
+		'tooltip_message': "Is that a yogurt container?",
 		'display': true,
 	},
 	'fuel': {
@@ -32,12 +32,12 @@ var resources = {
 	},
 	'iron': {
 		'name': "Iron",
-		'tooltip_message': "Used to build many things.",
+		'tooltip_message': "Used to build many buildings.",
 		'display': true,
 	},
 	'crovanite': {
 		'name': "Crovanite",
-		'tooltip_message': "-ZZ TESTING ZZ-",
+		'tooltip_message': "Good for making spaceships.",
 		'display': true,
 	},
 	'water': {
@@ -47,22 +47,27 @@ var resources = {
 	},
 	'sternium': {
 		'name': "Crystalline Sternium",
-		'tooltip_message': "Shield generator.",
+		'tooltip_message': "Hard to come by, good for more exotic technologies.",
 		'display': true,
 	},
 	'raw_decinium': {
 		'name': "Decinium Ore",
-		'tooltip_message': "Reinforced building material",
+		'tooltip_message': "Needs to be processed first.",
 		'display': true,
 	},
 	'decinium': {
 		'name': "Decinium",
-		'tooltip_message': "Reinforced building material",
+		'tooltip_message': "Fire an ingot out of a barrel and you've got a cannon.",
 		'display': true,
 	},
 	'helium3': {
 		'name': "Helium 3",
 		'tooltip_message': "An excellent fusion fuel source.",
+		'display': true,
+	},
+	'chemicals': {
+		'name': "Chemical Compounds",
+		'tooltip_message': "Mix in beakers for a big boom.",
 		'display': true,
 	},
 }

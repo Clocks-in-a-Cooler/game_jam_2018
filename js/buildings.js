@@ -232,6 +232,10 @@ var buildings = {
         'build_message_4': "One small step, one giant leap.",
         'build_message_5': "One small step, one giant.",
         'max_message': "",
+		'produce': function()
+        {
+            City.add_ware("chemicals",1);
+        },
     },
 	
 	'manufactoring_plant': {
