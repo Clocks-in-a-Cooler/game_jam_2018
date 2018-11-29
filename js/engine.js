@@ -16,6 +16,8 @@ var Engine = (function() {
     //data
     var ships = [], projectiles = [], asteroids = [], resources = [];
     
+    var prompt = null;
+    
     var exploring = false;
     
     //to keep track of animation time
@@ -308,11 +310,33 @@ var Engine = (function() {
             removeEventListener("keyup", key_up_event);
         },
         
-        prompt: function(sentence, responses) {
+        prompt: function(sentence, key, time, resp) {
             //for prompting the player during explore
             //sentence is the sentence prompt
-            //responses are the responses.
+            //key is the response key.
+            //resp is the response function to execute when the key is pressed
             //play Everyone's Sky for a bit, and you'll know
+            
+            
+            //sanity checks
+            if (!sentence) { throw new Error("a prompt is missing!"); }
+            if (key.length != 1) { throw new Error("invalid trigger key for prompt \"" + prompt + "\"."); }
+            if (typeof time != "number" || isNaN(time)) { throw new Error("invalid time! check if it's a number!"); }
+            if (typeof resp != "function") { throw new Error("response to prompt isn't a function!"); }
+        
+            prompt = sentence;
+            
+            var response = function(e) {
+                if (e.key == key.toLowerCase()) {
+                    resp();
+                    Engine.log("prompt \"" + prompt + "\"'s response was activated.");
+                    removeEventListener("keydown", response);
+                }
+            };
+            
+            Engine.log("a new prompt has been added: " + prompt);
+            
+            addEventListener("keydown", response);
         },
         
         // events
