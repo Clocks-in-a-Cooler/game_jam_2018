@@ -3,7 +3,7 @@
 var Player_planet = (function() {
     var pos = {x: null, y: null};
     
-    var angle = Math.PI;
+    var angle = -Math.PI / 2;
     
     var radius = 100;
     

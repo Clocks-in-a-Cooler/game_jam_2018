@@ -210,7 +210,7 @@ var Engine = (function() {
         notify: function(message) {
             // auto clear 
             if (message_panel.childNodes.length > 20 ) {
-                message_panel.removeChild(message_panel.childNodes[19]); // keeping the glass pane alive and well.
+                message_panel.removeChild(message_panel.childNodes[18]); // keeping the glass pane alive and well.
             }
 
             var new_message         = document.createElement("DIV");
