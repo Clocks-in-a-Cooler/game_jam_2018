@@ -13,7 +13,7 @@
     <script src="js/event_unlocks.js"></script>
 
     <!--- **** Everyone's Sky-style files**** --->
-	<script src="js/audio.js"></script>
+    <script src="js/audio.js"></script>
     <script src="js/assets.js"></script>
     <script src="js/pickupable.js"></script>
     <script src="js/asteroid.js"></script>
@@ -21,26 +21,26 @@
     <script src="js/bullet.js"></script>
     <script src="js/player_planet.js"></script>
     <script src="js/player_ship.js"></script>
-	
-	<!--- **** Audio files**** --->
-	<audio id=menuThemeTrack>
-		<source src="assets/audio/menu_theme.mp3" type="audio/mpeg">
-		<source src="assets/audio/menu_theme.wav" type="audio/wave">
-	</audio>
-	<audio id=dysonDiscoveryTrack>
-		<source src="assets/audio/discovery.mp3" type="audio/mpeg">
-		<source src="assets/audio/discovery.wav" type="audio/wave">
-	</audio>
-	<audio id=exploreTrack>
-		<source src="assets/audio/space_explore.mp3" type="audio/mpeg">
-		<source src="assets/audio/space_explore.wav" type="audio/wave">
-	</audio>
+    
+    <!--- **** Audio files**** --->
+    <audio id=menuThemeTrack>
+        <source src="assets/audio/menu_theme.mp3" type="audio/mpeg">
+        <source src="assets/audio/menu_theme.wav" type="audio/wave">
+    </audio>
+    <audio id=dysonDiscoveryTrack>
+        <source src="assets/audio/discovery.mp3" type="audio/mpeg">
+        <source src="assets/audio/discovery.wav" type="audio/wave">
+    </audio>
+    <audio id=exploreTrack>
+        <source src="assets/audio/space_explore.mp3" type="audio/mpeg">
+        <source src="assets/audio/space_explore.wav" type="audio/wave">
+    </audio>
     
     <link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="icon" type="image/png" href="assets/favicon/favicon-32x32.png" sizes="32x32"/>
-	<link rel="icon" type="image/png" href="assets/favicon/favicon-16x16.png" sizes="16x16"/>
-    <title>Procyon</title>	
-	
+    <link rel="icon" type="image/png" href="assets/favicon/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="assets/favicon/favicon-16x16.png" sizes="16x16"/>
+    <title>Procyon</title>  
+    
 </head>
 <body>
     <div id="content">
@@ -57,32 +57,28 @@
         <div id="explore_panel" class="invisible">
             <canvas id="canv"></canvas>
         </div>
-		<!-- Bodgy solution, please clean up  -->
-		<div id="explore_returnhome" onclick="Engine.switch_explore()" class="invisible light_button">
-			Return Home
-		</div>
     </div>
-		<div id="muteUnmute" onclick="muteUnmute()" class="light_button">
-			Audio
-		</div>
+        <div id="muteUnmute" onclick="muteUnmute()" class="light_button">
+            Audio
+        </div>
     
     <script>
         //script to execute once the document has loaded
         var canv;
         var explore;
-		var menuTheme;
-		var dysonDiscovery;
+        var menuTheme;
+        var dysonDiscovery;
         window.onload = function()
         {
             
             canv = document.getElementById("canv");
             explore_panel = document.getElementById("explore_panel");
-			
-			menuTheme = document.getElementById("menuThemeTrack");
-			explore = document.getElementById("exploreTrack");
-			dysonDiscovery = document.getElementById("dysonDiscoveryTrack");
-			
-			Engine.initialize(); // MUST ALWAYS BE LAST!
+            
+            menuTheme = document.getElementById("menuThemeTrack");
+            explore = document.getElementById("exploreTrack");
+            dysonDiscovery = document.getElementById("dysonDiscoveryTrack");
+            
+            Engine.initialize(); // MUST ALWAYS BE LAST!
         };
     </script>
 </body>
