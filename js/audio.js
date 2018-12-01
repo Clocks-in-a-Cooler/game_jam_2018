@@ -1,6 +1,5 @@
-var menuTheme = document.getElementById("menuTrack");
-var explore = document.getElementById("exploreTrack");
-var dysonDiscovery = document.getElementById("dysonDiscoveryTrack");
+// PLEASE FIX, BOGDY SOLUTIONS ALL THE WAY
+var playing_audio;
 //var cityBuilding = document.getElementById("paperworkTrack");
 
 function sleep(ms) {
@@ -17,6 +16,70 @@ function playLoopTrack(soundTrack) {
 	soundTrack.play();
 }
 
+function backgroundLoop ()
+{
+	menuTheme.loop = false;
+	menuTheme.play();
+	playing_audio = true; // not universal
+	
+	menuTheme.volume = 1;
+	explore.volume = 1;
+	dysonDiscovery.volume = 1;
+	
+	menuTheme.addEventListener("ended",
+		function()
+		{
+			pauseAudio(menuTheme);
+			menuTheme.currentTime = 0;
+			explore.loop = false;
+			explore.play();
+			
+		}
+	);
+	
+	explore.addEventListener("ended",
+		function()
+		{
+			pauseAudio(explore);
+			explore.currentTime = 0;
+			dysonDiscovery.loop = false;
+			dysonDiscovery.play();
+			
+		}
+	);
+	
+	dysonDiscovery.addEventListener("ended",
+		function()
+		{
+			pauseAudio(dysonDiscovery);
+			dysonDiscovery.currentTime = 0;
+			menuTheme.loop = false;
+			menuTheme.play();
+		}
+	);
+}
+
+// pause all audio
+function pauseAllAudio()
+{
+	playing_audio = false; // not universal
+	
+	pauseAudio(menuTheme);
+	pauseAudio(explore);
+	pauseAudio(dysonDiscovery);
+}
+
+function muteUnmute()
+{
+	if(playing_audio) // not universal 
+	{
+		pauseAllAudio();
+	}
+	else
+	{
+		backgroundLoop();
+	}
+}
 async function pauseAudio(soundTrack) {
 	for (let i = 100; i >= 0; --i) {
 		await sleep(20);
