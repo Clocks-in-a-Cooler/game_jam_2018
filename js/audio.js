@@ -20,7 +20,7 @@ function playLoopTrack(soundTrack) {
 async function pauseAudio(soundTrack) {
 	for (let i = 100; i >= 0; --i) {
 		await sleep(20);
-		audioOST.volume = i/100;
+		soundTrack.volume = i/100;
 	}
 	soundTrack.pause();
 }
