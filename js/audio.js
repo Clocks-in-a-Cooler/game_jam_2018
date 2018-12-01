@@ -30,8 +30,7 @@ function backgroundLoop ()
 		function()
 		{
 			menuTheme.currentTime = 0;
-			explore.loop = false;
-			explore.play();
+			playTrack(explore);
 			
 		}
 	);
@@ -40,8 +39,7 @@ function backgroundLoop ()
 		function()
 		{
 			explore.currentTime = 0;
-			dysonDiscovery.loop = false;
-			dysonDiscovery.play();
+			playTrack(dysonDiscovery);
 			
 		}
 	);
@@ -50,8 +48,7 @@ function backgroundLoop ()
 		function()
 		{
 			dysonDiscovery.currentTime = 0;
-			menuTheme.loop = false;
-			menuTheme.play();
+			playTrack(menuTheme);
 		}
 	);
 }
