@@ -143,7 +143,7 @@ var events = {
 		
 		"event": function()
 		{
-			Engine.notify("A strange being appears out of nowhere. It wants 100 pieces of crovanite and 10 batteries, It says it can find a solar panel.");
+			Engine.notify("A strange looking robot appears out of nowhere. It wants 100 pieces of crovanite and 10 batteries, says it can find solar panels.");
 			var trade_button = MPM.create_button("Trade for a Solar Panel"
 				,function()
 				{
@@ -153,7 +153,6 @@ var events = {
 						City.add_ware("crovanite",-100);
 						City.add_ware("photovoltaic_panel",1);
 					}
-					MPM.time_out(trade_button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"trade_button",["light_button"]
 				,MPM.create_tooltip("100 pieces of crovanite and 10 batteries for 1 solar panel."));
@@ -198,7 +197,7 @@ var events = {
 						City.add_ware("iron",-2000);
 						City.add_ware("silicon",-5000);
 						City.add_ware("plastic",-5000);
-						Engine.notify("With a bit of Engine grease, you manage to fix the ship. Let's hope it's seaworthy.");
+						Engine.notify("With a bit of Engine grease and miracle work, you manage to fix the ship. Let's hope it's seaworthy.");
 						MPM.remove_element("initialize_repair_ship_button");
 						events["initialize_explore_button"]["event"]();
 					}
@@ -211,7 +210,7 @@ var events = {
 				,MPM.create_tooltip("10000 crovanite 3000 decinium, 100 batteries, 2000 iron, 5000 silicon, 5000 plastic")));
 			
 			Engine.remove_trigger("initialize_repair_ship_button");
-			Engine.notify("The mysterious being returns, and guides you to a dark corner you've not seen before. There is a ship here, and you must repair it.");
+			Engine.notify("The mysterious robot returns, and guides you to a dark place you've not seen before. There is a ship here, and you want to repair it.");
 		}
 	},
 	
@@ -248,7 +247,7 @@ var events = {
 		
 		"event": function()
 		{
-			var button = MPM.create_button("Iron Smelter"
+			var button = MPM.create_button("Metal Forge"
 				,function()
 				{
 					City.buy_building("iron_smelter");
