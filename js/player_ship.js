@@ -154,6 +154,12 @@ var Player_ship = (function() {
             context.restore();
         },
         
+        init: function() {
+            //just above the planet
+            POS.x = Player_planet.x;
+            POS.y = Player_planet.y - 200;
+        },
+        
         get is_moving() { return !(in_orbit && in_combat);},
         
         get angle() { return angle; },
