@@ -29,7 +29,6 @@ function backgroundLoop ()
 	menuTheme.addEventListener("ended",
 		function()
 		{
-			pauseAudio(menuTheme);
 			menuTheme.currentTime = 0;
 			explore.loop = false;
 			explore.play();
@@ -40,7 +39,6 @@ function backgroundLoop ()
 	explore.addEventListener("ended",
 		function()
 		{
-			pauseAudio(explore);
 			explore.currentTime = 0;
 			dysonDiscovery.loop = false;
 			dysonDiscovery.play();
@@ -51,7 +49,6 @@ function backgroundLoop ()
 	dysonDiscovery.addEventListener("ended",
 		function()
 		{
-			pauseAudio(dysonDiscovery);
 			dysonDiscovery.currentTime = 0;
 			menuTheme.loop = false;
 			menuTheme.play();
