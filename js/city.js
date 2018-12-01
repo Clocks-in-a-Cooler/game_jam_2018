@@ -42,6 +42,8 @@ var City = (
 					city[name].number = city[name].number + number;
 					// also do DOM
 					MPM.set_number(name+"_display_number",city[name].number);
+					// NOT INFALLIBLE, PLEASE FIX WITH FOOLPROOF METHOD!
+					MPM.remove_class("invisible",document.getElementById(name+"_display")); // auto unlock if there's at least 1
 				}
 				return city[name].number;
 			},
@@ -140,6 +142,8 @@ var City = (
 					if (wares[name]["number"] < 0){wares[name]["number"] = 0};
 					// also do DOM
 					MPM.set_number(name+"_display_number",wares[name]["number"]);
+					// NOT INFALLIBLE, PLEASE FIX WITH FOOLPROOF METHOD!
+					MPM.remove_class("invisible",document.getElementById(name+"_display")); // auto unlock if there's at least 1
 				}
 				return wares[name]["number"];
 			},
@@ -162,6 +166,8 @@ var City = (
 					utility[name].capacity = utility[name].capacity + number;
 					// also do DOM
 					MPM.set_number(name+"_display_number_maximum",utility[name].capacity);
+					// NOT INFALLIBLE, PLEASE FIX WITH FOOLPROOF METHOD!
+					MPM.remove_class("invisible",document.getElementById(name+"_display")); // auto unlock if there's at least 1
 				}
 				return utility[name];
 			},

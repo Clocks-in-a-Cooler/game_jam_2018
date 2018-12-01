@@ -28,7 +28,7 @@ var Engine = (function() {
     
     //map size, viewport and their properties
     var map_size = {
-        //for testing purposes, 1000 by 1000.
+        //for testing purposes, 5000 by 5000.
         x: 5000,
         y: 5000,
     };
@@ -196,6 +196,7 @@ var Engine = (function() {
             {
                 MPM.show();
                 MPM.add_class("invisible",explore_panel);
+				MPM.add_class("invisible",document.getElementById("explore_returnhome"));
                 Engine.deact_explore();
                 Engine.deactivate_keys();
                 exploring = false;
@@ -205,6 +206,7 @@ var Engine = (function() {
             {
                 MPM.hide();
                 MPM.remove_class("invisible",explore_panel);
+				MPM.remove_class("invisible",document.getElementById("explore_returnhome"));
                 Engine.init_explore(canv,MAIN_WIDTH,MAIN_HEIGHT);
                 Engine.animate();
                 Engine.activate_keys();
