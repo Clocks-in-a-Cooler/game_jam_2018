@@ -134,6 +134,7 @@ div.tooltip:hover
 .light_button:hover
 {
     text-decoration-line: underline;
+	background-color: #10009F;
 }
 
 .light_button.disabled
@@ -182,7 +183,7 @@ div#display_panel
 {
     position: absolute;
     top: 0px;
-    right: -250px;
+    right: -100px;
     cursor: default;
     padding: 5px 10px;
 }   

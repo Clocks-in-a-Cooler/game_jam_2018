@@ -122,6 +122,12 @@ var Player_ship = (function() {
             context.restore();
         },
         
+        init: function() {
+            //just above the planet
+            POS.x = Player_planet.x;
+            POS.y = Player_planet.y - 200;
+        },
+        
         get is_moving() { return !(in_orbit && in_combat);},
         
         get angle() { return angle; },
@@ -141,10 +147,14 @@ function draw_arrow(context) {
     //find the angle. TRIG all over again! *fun*!
     //tangent's a weird one, so i'll use sine.
     var angle;
-    var opp = Player_ship.pos.y - Player_planet.y;
+    var opp = (Player_ship.pos.y - Player_planet.y) * -1;
     var hyp = Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y);
     
-    angle = Math.asinh(opp / hyp);
+    angle = Math.asin(opp / hyp);
+    
+    if (Player_ship.pos.x >= Player_planet.x) {
+        angle = Math.PI - angle;
+    }
     
     var draw_x = Math.cos(angle) * 100 + (Engine.viewport.width / 2);
     var draw_y = Math.sin(angle) * 100 + (Engine.viewport.height / 2);
@@ -157,3 +167,19 @@ function draw_arrow(context) {
     
     context.restore();
 }
+
+function get_angle() {
+        var angle;
+    var opp = -1 * (Player_ship.pos.y - Player_planet.y);
+    var hyp = Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y);
+    
+    angle = Math.asin(opp / hyp);
+    
+    if (Player_ship.pos.x >= Player_planet.x) {
+        angle = Math.PI - angle;
+    }
+    
+    return angle;
+}
+
+function toDeg(x) { return x * 180 / Math.PI; }

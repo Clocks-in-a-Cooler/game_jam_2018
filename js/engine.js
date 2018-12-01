@@ -16,6 +16,8 @@ var Engine = (function() {
     //data
     var ships = [], projectiles = [], asteroids = [], resources = [];
     
+    var asteroid_limit = 30;
+    
     var prompt = null;
     
     var exploring = false;
@@ -28,7 +30,7 @@ var Engine = (function() {
     
     //map size, viewport and their properties
     var map_size = {
-        //for testing purposes, 1000 by 1000.
+        //for testing purposes, 5000 by 5000.
         x: 5000,
         y: 5000,
     };
@@ -84,6 +86,15 @@ var Engine = (function() {
             });
             
             var arr = [].concat(ast, res, prj);
+            
+            if (v.is_in_view(Player_planet, Player_planet.radius, Player_planet.radius)) {
+                arr.push(Player_planet);
+            }
+            
+            if (v.is_in_view(Player_home_star, Player_home_star.radius, Player_home_star.radius)) {
+                arr.push(Player_home_star);
+            }
+            
             arr.push(Player_ship);
             
             return arr;
@@ -149,10 +160,30 @@ var Engine = (function() {
             case 32:
                 Player_ship.fire = false;
                 break;
-            case 66:
-                Engine.asteroids.push(new Asteroid(Math.random() * Engine.canvas_x, Math.random() * Engine.canvas_y, 1, 1));
-                break;
         }
+    }
+        
+    function generate_asteroid() {
+        //generates an asteroid offscreen
+        var x, y, v_x, v_y, a;
+        var success = false;
+        
+        do {
+            //generate random coordinates
+            x = Math.trunc(Math.random() * map_size.x);
+            y = Math.trunc(Math.random() * map_size.y);
+            
+            v_x = Math.random() > 0.5 ? Math.SQRT1_2 : -Math.SQRT1_2;
+            v_y = Math.random() > 0.5 ? Math.SQRT1_2 : -Math.SQRT1_2;
+            
+            a = new Asteroid(x, y, v_x, v_y);
+            
+            success = !viewport.is_in_view(a, -a.horizontal_offset, -a.vertical_offset);
+            
+        } while (!success)
+        
+        Engine.log("a new asteroid has been created at (" + a.x + ", " + a.y + ").");
+        asteroids.push(a);
     }
     
     return {
@@ -172,12 +203,14 @@ var Engine = (function() {
             
             // Set triggers
             setInterval(Engine.check_triggers,1000);
+            
+            Player_planet.init();
         },
         
         notify: function(message) {
             // auto clear 
             if (message_panel.childNodes.length > 20 ) {
-                message_panel.removeChild(message_panel.childNodes[19]); // keeping the glass pane alive and well.
+                message_panel.removeChild(message_panel.childNodes[18]); // keeping the glass pane alive and well.
             }
 
             var new_message         = document.createElement("DIV");
@@ -196,6 +229,7 @@ var Engine = (function() {
             {
                 MPM.show();
                 MPM.add_class("invisible",explore_panel);
+                MPM.add_class("invisible",document.getElementById("explore_returnhome"));
                 Engine.deact_explore();
                 Engine.deactivate_keys();
                 exploring = false;
@@ -205,6 +239,7 @@ var Engine = (function() {
             {
                 MPM.hide();
                 MPM.remove_class("invisible",explore_panel);
+                MPM.remove_class("invisible",document.getElementById("explore_returnhome"));
                 Engine.init_explore(canv,MAIN_WIDTH,MAIN_HEIGHT);
                 Engine.animate();
                 Engine.activate_keys();
@@ -226,6 +261,8 @@ var Engine = (function() {
             viewport.width  = canvas.width;
             viewport.height = canvas.height;
             //you'll need to activate the event handlers seperately
+            
+            Player_ship.init();
         },
         
         deact_explore: function() {
@@ -238,6 +275,9 @@ var Engine = (function() {
         draw_new_frame: function(lapse) {
             //update player first
             Player_ship.get_new_position(lapse);
+           
+            //then update the planet
+            Player_planet.get_new_position(lapse);
             
             //update the viewport right after
             viewport.scroll_player_to_view();
@@ -271,11 +311,15 @@ var Engine = (function() {
             });
             
             //debug
+            /*
             context.font      = "14pt Times New Roman";
             context.fillStyle = "white";
-            context.fillText("(" + Math.trunc(Player_ship.pos.x) + ", " + Math.trunc(Player_ship.pos.y) + "), Objects: " + objects.length, 100, 50);
+            context.fillText("(" + Math.trunc(Player_ship.pos.x) + ", " + Math.trunc(Player_ship.pos.y) + "), Objects: " + objects.length + ", angle: " + Math.trunc(toDeg(get_angle())), 100, 50);
+            */
             
-            //draw_arrow(context);
+            if (Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y) > 400) {
+                draw_arrow(context);
+            }
         },
         
         animate: function(time) {
@@ -290,6 +334,11 @@ var Engine = (function() {
             if (!paused) {
                 Engine.draw_new_frame(lapse);
                 requestAnimationFrame(Engine.animate);
+                
+                if (asteroids.length <= asteroid_limit) {
+                    generate_asteroid();
+                }
+                
             } else {
                 Engine.log("next animation frame NOT requested.");
                 last_time = null;

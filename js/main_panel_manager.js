@@ -4,11 +4,13 @@ var MPM = (
         
         var MINING_COOLDOWN = 50;
         var DEFAULT_COOLDOWN = 1000;
-        var BUILD_COOLDOWN = 200;
+		var FLOATING_TEXT_TIME = 1000;
+		
         var DEF_PANEL = "main_panel";
         var panel;
         // references
         var build_panel;
+		var action_panel;
         var display_panel;
         var resources_panel;
         var utilities_panel;
@@ -21,7 +23,6 @@ var MPM = (
                 panel = document.getElementById("main_panel");
                 // build_panel
                 build_panel = MPM.create_panel("build_panel",["panel"]);
-                
                 // more elegant cascading events. Hey, I said more, not absolutely.
                 events["initialize"]["event"]();
                 
@@ -33,14 +34,14 @@ var MPM = (
                 for (let index in resources)
                 {
                     
-                    resources_panel.appendChild(MPM.create_display(resources[index].name,index+"_display",["display"],MPM.create_tooltip(resources[index].tooltip_message,index+"_display_tooltip",["tooltip","bottom","right"])));
+                    resources_panel.appendChild(MPM.create_display(resources[index].name,index+"_display",["display","invisible"],MPM.create_tooltip(resources[index].tooltip_message,index+"_display_tooltip",["tooltip","bottom","right"])));
                 }
                 // buildings panel
                 buildings_panel = MPM.create_panel("buildings_panel",["panel","resource_panel"]);
                 // DO AUTO LATER TOO
                 for (let index in buildings)
                 {
-                    buildings_panel.appendChild(MPM.create_display(buildings[index].name,index + "_display",["display"],MPM.create_tooltip(buildings[index].tooltip_message,index+"_display_tooltip",["tooltip","bottom","right"])));
+                    buildings_panel.appendChild(MPM.create_display(buildings[index].name,index + "_display",["display","invisible"],MPM.create_tooltip(buildings[index].tooltip_message,index+"_display_tooltip",["tooltip","bottom","right"])));
                 }
                 
                 // Utilities
@@ -49,7 +50,7 @@ var MPM = (
                 for (let index in utilities)
                 {
                     let utility_num_max = MPM.create_number(index + "_display" + "_number_maximum", ["display_number"]);
-                    let utility_num = MPM.create_display(utilities[index].name,index + "_display",["display"],MPM.create_tooltip(utilities[index].tooltip_message,index+"_display_tooltip",["tooltip","bottom","right"]));
+                    let utility_num = MPM.create_display(utilities[index].name,index + "_display",["display","invisible"],MPM.create_tooltip(utilities[index].tooltip_message,index+"_display_tooltip",["tooltip","bottom","right"]));
                     utility_num.appendChild(document.createTextNode("/"));
                     utility_num.appendChild(utility_num_max);
                     utilities_panel.appendChild(utility_num);
@@ -58,10 +59,15 @@ var MPM = (
                 display_panel.appendChild(resources_panel);
                 display_panel.appendChild(buildings_panel);
                 display_panel.appendChild(utilities_panel);
-                
+				
+				// action panel
+				action_panel = MPM.create_panel("action_panel",["panel"]);
+
                 // main 
                 panel.appendChild(build_panel);
+				panel.appendChild(action_panel);
                 panel.appendChild(display_panel);
+				
             },
             
             hide: function()
@@ -132,14 +138,38 @@ var MPM = (
             
             add_class: function(element_class, element)
             {
-                element.classList.add(element_class);
+				if (element)
+				{
+					element.classList.add(element_class);
+				}
             },
             
             remove_class: function(element_class, element)
             {
-                element.classList.remove(element_class);
+				if (element)
+				{
+					element.classList.remove(element_class);
+				}
             },
             
+			// floating text 
+			create_floating_text (element, message)
+			{
+				let floating_text = document.createElement('div');
+				floating_text.classList.add("floating_text");
+				
+				// assign coordinates
+				let coordinates = element.getBoundingClientRect();
+				
+				floating_text.style.left = coordinates.left + "px";
+				floating_text.style.top = coordinates.top + "px";
+				
+				floating_text.appendChild(document.createTextNode(message));
+				
+				document.body.append(floating_text);
+				setTimeout(() => floating_text.remove(), FLOATING_TEXT_TIME);
+			},
+			
             // buttons
             create_button: function(button_text,button_function,button_id,button_class,tooltip)
             {
@@ -335,6 +365,13 @@ var MPM = (
                 }
             },
             
+			append_action_panel: function(element)
+            {
+                if(element)
+                {
+                    action_panel.appendChild(element);
+                }
+            },
             // getters
             get DEFAULT_COOLDOWN() {return DEFAULT_COOLDOWN},
             get MINING_COOLDOWN() {return MINING_COOLDOWN},
