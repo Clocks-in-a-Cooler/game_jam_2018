@@ -25,12 +25,15 @@
 	<!--- **** Audio files**** --->
 	<audio id=menuThemeTrack>
 		<source src="assets/audio/menu_theme.mp3" type="audio/mpeg">
+		<source src="assets/audio/menu_theme.wav" type="audio/wave">
 	</audio>
 	<audio id=dysonDiscoveryTrack>
 		<source src="assets/audio/discovery.mp3" type="audio/mpeg">
+		<source src="assets/audio/discovery.wav" type="audio/wave">
 	</audio>
 	<audio id=exploreTrack>
 		<source src="assets/audio/space_explore.mp3" type="audio/mpeg">
+		<source src="assets/audio/space_explore.wav" type="audio/wave">
 	</audio>
     
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -59,19 +62,27 @@
 			Return Home
 		</div>
     </div>
+		<div id="muteUnmute" onclick="muteUnmute()" class="light_button">
+			Audio
+		</div>
     
     <script>
         //script to execute once the document has loaded
         var canv;
         var explore;
+		var menuTheme;
+		var dysonDiscovery;
         window.onload = function()
         {
-            Engine.initialize();
+            
             canv = document.getElementById("canv");
             explore_panel = document.getElementById("explore_panel");
-			menuTheme = document.getElementById("menuTrack");
+			
+			menuTheme = document.getElementById("menuThemeTrack");
 			explore = document.getElementById("exploreTrack");
 			dysonDiscovery = document.getElementById("dysonDiscoveryTrack");
+			
+			Engine.initialize(); // MUST ALWAYS BE LAST!
         };
     </script>
 </body>
