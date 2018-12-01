@@ -313,9 +313,11 @@ var Engine = (function() {
             //debug
             context.font      = "14pt Times New Roman";
             context.fillStyle = "white";
-            context.fillText("(" + Math.trunc(Player_ship.pos.x) + ", " + Math.trunc(Player_ship.pos.y) + "), Objects: " + objects.length, 100, 50);
+            context.fillText("(" + Math.trunc(Player_ship.pos.x) + ", " + Math.trunc(Player_ship.pos.y) + "), Objects: " + objects.length + ", angle: " + Math.trunc(toDeg(get_angle())), 100, 50);
             
-            //draw_arrow(context);
+            if (Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y) > 400) {
+            draw_arrow(context);
+            }
         },
         
         animate: function(time) {
