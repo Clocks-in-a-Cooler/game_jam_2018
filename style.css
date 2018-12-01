@@ -59,10 +59,11 @@ div.tooltip
     display: none;
     padding: 2px 5px;
     border: 1px solid white;
-    position: fixed;
+    position: relative;
     box-shadow: -1px 1px 5px #FFFFFF;
     background: black;
     z-index: 999;
+    width: 350px;
     
     left:30px;
     
@@ -70,7 +71,7 @@ div.tooltip
 
 .tooltip.bottom
 {
-    top: 30px;
+    top: 5px;
 }
 
 .tooltip.right 
@@ -193,7 +194,6 @@ div#display_panel
 
 .resource_panel
 {
-    border: 1px solid white;
     width: 200px;
     margin: 10px 0 0 0;
     padding: 5px 10px;
@@ -245,4 +245,7 @@ div#about {
     visibility: hidden;
     font-family: inherit;
     font-size: inherit;
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
 }
