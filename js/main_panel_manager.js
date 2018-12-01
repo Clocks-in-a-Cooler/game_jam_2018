@@ -5,6 +5,8 @@ var MPM = (
         var MINING_COOLDOWN = 50;
         var DEFAULT_COOLDOWN = 1000;
         var BUILD_COOLDOWN = 200;
+		var FLOATING_TEXT_TIME = 1000;
+		
         var DEF_PANEL = "main_panel";
         var panel;
         // references
@@ -151,6 +153,24 @@ var MPM = (
 				}
             },
             
+			// floating text 
+			create_floating_text (element, message)
+			{
+				let floating_text = document.createElement('div');
+				floating_text.classList.add("floating_text");
+				
+				// assign coordinates
+				let coordinates = element.getBoundingClientRect();
+				
+				floating_text.style.left = coordinates.left + "px";
+				floating_text.style.top = coordinates.top + "px";
+				
+				floating_text.appendChild(document.createTextNode(message));
+				
+				document.body.append(floating_text);
+				setTimeout(() => floating_text.remove(), FLOATING_TEXT_TIME);
+			},
+			
             // buttons
             create_button: function(button_text,button_function,button_id,button_class,tooltip)
             {
