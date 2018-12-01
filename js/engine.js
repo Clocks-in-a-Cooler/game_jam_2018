@@ -160,9 +160,27 @@ var Engine = (function() {
             case 32:
                 Player_ship.fire = false;
                 break;
+            case 82:
+                return_home();
+                break;
         }
     }
         
+    function return_home() {
+        if (Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y) < 200) {
+            Engine.log("returning home.");
+            Engine.switch_explore();
+        } else {
+            Engine.log("too far away!");
+        }
+    }
+   
+    function draw_return_prompt() {
+        context.fillStyle = "white";
+        context.font      = "14 pt Times New Roman";
+        context.fillText("Press R to return home", Engine.canvas_x / 2 - 100, Engine.canvas_y - 10);
+    }
+    
     function generate_asteroid() {
         //generates an asteroid offscreen
         var x, y, v_x, v_y, a;
@@ -229,7 +247,6 @@ var Engine = (function() {
             {
                 MPM.show();
                 MPM.add_class("invisible",explore_panel);
-                MPM.add_class("invisible",document.getElementById("explore_returnhome"));
                 Engine.deact_explore();
                 Engine.deactivate_keys();
                 exploring = false;
@@ -239,7 +256,6 @@ var Engine = (function() {
             {
                 MPM.hide();
                 MPM.remove_class("invisible",explore_panel);
-                MPM.remove_class("invisible",document.getElementById("explore_returnhome"));
                 Engine.init_explore(canv,MAIN_WIDTH,MAIN_HEIGHT);
                 Engine.animate();
                 Engine.activate_keys();
@@ -319,6 +335,10 @@ var Engine = (function() {
             
             if (Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y) > 400) {
                 draw_arrow(context);
+            }
+            
+            if (Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y) < 200) {
+                draw_return_prompt();
             }
         },
         
