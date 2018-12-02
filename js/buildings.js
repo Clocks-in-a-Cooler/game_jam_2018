@@ -128,7 +128,7 @@ var buildings = {
                 City.add_ware('raw_iron', -1);
                 City.add_ware('iron', 1);
 				
-				if (City.get_ware('water').number >= 1)
+				if (City.get_ware('water').number >= 1 && FORGE_USES_WATER)
 				{	
 					City.add_ware('water', -1);
 					City.add_ware('iron', 1);
@@ -139,7 +139,7 @@ var buildings = {
                 City.add_ware('raw_decinium', -1);
                 City.add_ware('decinium', 1);
 				
-				if (City.get_ware('water').number >= 1)
+				if (City.get_ware('water').number >= 1 && FORGE_USES_WATER)
 				{	
 					City.add_ware('water', -1);
 					City.add_ware('decinium', 1);

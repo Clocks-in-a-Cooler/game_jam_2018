@@ -260,6 +260,15 @@ var events = {
 			Engine.add_trigger("unlock_mining_depot");
 			Engine.add_trigger("unlock_solar_distiller");
 			Engine.add_trigger("unlock_helium_collector");
+			
+			var togglebutton = MPM.create_button("Forges Use Water?"
+				,function()
+				{
+					FORGE_USES_WATER = !FORGE_USES_WATER;
+				}
+				,"",["light_button"]
+				,MPM.create_tooltip("Forges will use 1 water per second to produce another piece of Iron/Decinium"));
+				build_panel.appendChild(togglebutton);
 		}
 	},
 	
