@@ -47,12 +47,24 @@ var scene_handler = (function() {
     }
     
     function create_title(title) {
-        
+        //do i really need this here?
+        return create_element("p", "scene_title", title);
     }
     
     return {
         init: function() {
-            
+            document.body.appendChild(overlay);
+            document.body.appendChild(scene_display);
+        },
+        
+        show_scene: function() {
+            overlay.style.visbility        = "visible";
+            scene_display.style.visibility = "visible";
+        },
+        
+        hide_scene: function() {
+            overlay.style.visibility       = "hidden";
+            scene_display.style.visibility = "hidden";
         },
         
         get current_scene() { return current_scene; },
