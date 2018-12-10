@@ -9,12 +9,12 @@ function Bullet(x, y, vx, vy) {
     
     this.lifetime = 0;
     this.active   = true;
-    
-    this.bullet = true;
 }
 
 Bullet.prototype.max_lifetime = 2500; //in milliseconds
-Bullet.prototype.speed        = 0.4;
+
+Bullet.prototype.speed  = 0.4;
+Bullet.prototype.damage = 1;
 
 Bullet.prototype.get_new_position = function(lapse) {
     if (this.lifetime + lapse > this.max_lifetime) {

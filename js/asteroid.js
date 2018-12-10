@@ -70,7 +70,7 @@ Asteroid.prototype.check_collision = function() {
             b.x <= x + 35 &&
             b.y >= y - 35 &&
             b.y <= y + 35
-        ) && b.bullet;
+        ) && b instanceof Bullet;
     });
     
     bullets.forEach(function(b) {

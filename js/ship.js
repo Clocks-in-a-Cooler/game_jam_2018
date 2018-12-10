@@ -1,4 +1,4 @@
-//also contains the data for the special ship type...
+//also contains the data for torpedos
 function Ship(x, y, is_enemy) {
     this.x = x;
     this.y = y;
@@ -14,6 +14,8 @@ function Ship(x, y, is_enemy) {
     this.thrust = Math.random() * 0.002 + 0.004;
     this.rot    = Math.random() * 0.001 + 0.0025;
     this.reload = Math.trunc(Math.random() * 150) + 175;
+    
+    this.active = true;
 }
 
 //constants
@@ -35,7 +37,40 @@ Ship.prototype.draw = function(context) {
     context.restore();
 };
 
-/* -------------------------------------------------------------- */
+/* ----------------------------------------------------------------- */
+
+function Torpedo(x, y, vx, vy) {
+    this.x = x;
+    this.y = y;
+    this.v = { x: vx, y: vy, };
+    
+    this.angle = Math.asin(vy);
+    
+    this.active = true;
+}
+
+Torpedo.prototype.sprite = Assets.torpedo;
+Torpedo.prototype.speed  = 0.5;
+Torpedo.prototype.damage = 10;
+
+Torpedo.prototype.get_new_position = function(lapse) {
+    this.x += this.v.x * lapse * this.speed;
+    this.y += this.v.y * lapse * this.speed;
+    
+    //create a bubble
+    Engine.projectiles.push(new Bubble(this.x, this.y, -Math.cos(angle), -Math.sin(angle)));
+    
+    //despawning behaviour
+    if (this.x < 0 || this.x > Engine.map_size.x) {
+        this.active = false;
+    }
+    
+    if (this.y < 0 || this.y > Engine.map_size.y) {
+        this.active = false;
+    }
+};
+
+/* ----------------------------------------------------------------- */
 
 function Special_ship(x, y) {
     this.x = x;
@@ -56,7 +91,6 @@ function Special_ship(x, y) {
     this.time_since_fire = 0;
     
     this.sprite = Assets.special_ship;
+    
+    this.true;
 }
-
-
-function Torpedo = 

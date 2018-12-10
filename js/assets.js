@@ -13,6 +13,7 @@ var Assets = (function() {
     
     var asteroid = create_image("assets/asteroid.png");
     var bullet   = create_image("assets/bullet.png");
+    var torpedo  = create_image("assets/torpedo.png");
     var pickup   = create_image("assets/pickupable.png");
     
     return {
@@ -21,6 +22,7 @@ var Assets = (function() {
         
         get asteroid() { return asteroid; },
         get bullet() { return bullet; },
+        get torpedo() { return torpedo; },
         get pickupable() { return pickup; },
         
         get player_planet() { return player_planet; },
