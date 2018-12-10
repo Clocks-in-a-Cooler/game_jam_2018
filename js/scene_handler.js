@@ -17,6 +17,8 @@ var scene_handler = (function() {
         return e;
     })();
     
+    var current_scene;
+    
     function create_element(tag, class, inner_html) {
         var elt = document.createElement(tag);
         
@@ -57,6 +59,10 @@ var scene_handler = (function() {
             document.body.appendChild(scene_display);
         },
         
+        load_scene: function(scene) {
+            current_scene = scene;
+        },
+        
         show_scene: function() {
             overlay.style.visbility        = "visible";
             scene_display.style.visibility = "visible";
@@ -67,8 +73,14 @@ var scene_handler = (function() {
             scene_display.style.visibility = "hidden";
         },
         
+        end_scene: function() {
+            current_scene = null;
+            
+            this.hide_scene();
+            scene_display.innerHTML = "";
+        },
+        
         get current_scene() { return current_scene; },
-        set current_scene(s) { current_scene = s; },
     };
 })();
 
