@@ -4,7 +4,9 @@ function Planet(star, orbit_radius, sprite) {
     
     this.orbit_radius = orbit_radius;
     //this part needs reworking to follow Kepler's third law
-    this.orbit_speed  = 1e-6; //also 0.000001
+    //ignore: this.orbit_speed  = 1e-6; //also 0.000001
+    
+    this.orbit_speed = 0.0004 / this.orbit_radius;
     
     //now calculate its position
     this.x = Math.cos(angle) * this.orbit_radius + this.star.x;

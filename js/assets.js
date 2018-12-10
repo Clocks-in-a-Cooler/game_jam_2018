@@ -7,6 +7,10 @@ var Assets = (function() {
     var star           = create_image("assets/star.png");
     var alien_planet_1 = create_image("assets/alien_planet_1.png");
     
+    var allied_ship  = create_image("assets/allied_ship.png");
+    var enemy_ship   = create_image("assets/enemy_ship.png");
+    var special_ship = create_image("assets/special_ship.png");
+    
     var asteroid = create_image("assets/asteroid.png");
     var bullet   = create_image("assets/bullet.png");
     var pickup   = create_image("assets/pickupable.png");
@@ -22,6 +26,10 @@ var Assets = (function() {
         get player_planet() { return player_planet; },
         get star() { return star; },
         get alien_planet_1() { return alien_planet_1; },
+        
+        get allied_ship() { return allied_ship; },
+        get enemy_ship() { return enemy_ship; },
+        get special_ship() { return special_ship; },
     };
 })();
 

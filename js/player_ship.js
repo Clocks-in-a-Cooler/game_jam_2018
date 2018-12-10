@@ -12,7 +12,6 @@ var Player_ship = (function() {
     };
     
     var THRUST    = 0.005;
-    var MAX_SPEED = 0.5;
     var ROT_SPEED = 0.003;
     var FRICTION  = 0.0125; //coefficient of friction
     var angle     = -Math.PI / 2; //start facing...up?
