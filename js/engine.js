@@ -163,6 +163,9 @@ var Engine = (function() {
             case 82:
                 return_home();
                 break;
+            case 13:
+                Player_ship.fire_torpedo();
+                break;
         }
     }
         

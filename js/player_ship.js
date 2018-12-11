@@ -112,6 +112,10 @@ var Player_ship = (function() {
         return new Bullet(POS.x, POS.y, Math.cos(angle), Math.sin(angle));
     }
     
+    function fire_torpedo() {
+        return new Torpedo(POS.x, POS.y, Math.cos(angle), Math.sin(angle));
+    }
+    
     return {
         enter_orbit: function() {
             //code for entering orbit around a planet
@@ -157,6 +161,10 @@ var Player_ship = (function() {
             //just above the planet
             POS.x = Player_planet.x;
             POS.y = Player_planet.y - 200;
+        },
+        
+        fire_torpedo: function() {
+            Engine.projectiles.push(fire_torpedo());
         },
         
         get is_moving() { return !(in_orbit && in_combat);},
@@ -205,7 +213,7 @@ function draw_arrow(context) {
 }
 
 function get_angle() {
-        var angle;
+    var angle;
     var opp = -1 * (Player_ship.pos.y - Player_planet.y);
     var hyp = Math.hypot(Player_ship.pos.x - Player_planet.x, Player_ship.pos.y - Player_planet.y);
     

@@ -61,8 +61,7 @@ Asteroid.prototype.bounce = function() {
 
 Asteroid.prototype.check_collision = function() {
     var x = this.x, y = this.y;
-    
-    var collision = false;
+    var a = this;
     
     var bullets = Engine.projectiles.filter(function(b) {
         return (
@@ -70,19 +69,16 @@ Asteroid.prototype.check_collision = function() {
             b.x <= x + 35 &&
             b.y >= y - 35 &&
             b.y <= y + 35
-        ) && b instanceof Bullet;
+        ) && (b instanceof Bullet || b instanceof Torpedo);
     });
     
     bullets.forEach(function(b) {
-        collision = true;
-        b.collision();
+        b.collision(a);
     });
-    
-    if (collision) { this.collision(); }
 };
 
-Asteroid.prototype.collision = function() {
-    this.health -= 1;
+Asteroid.prototype.collision = function(n) {
+    this.health -= n || 1;
     
     if (this.health <= 0) {
         this.explode();

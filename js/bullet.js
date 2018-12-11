@@ -31,6 +31,7 @@ Bullet.prototype.draw = function(context) {
     context.drawImage(Assets.bullet, relative.x(this.x - 2.5), relative.y(this.y - 2.5));
 };
 
-Bullet.prototype.collision = function() {
+Bullet.prototype.collision = function(a) {
+    a.collision(this.damage);
     this.active = false;
 };

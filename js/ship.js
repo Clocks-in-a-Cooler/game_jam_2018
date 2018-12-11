@@ -45,12 +45,13 @@ function Torpedo(x, y, vx, vy) {
     this.v = { x: vx, y: vy, };
     
     this.angle = Math.asin(vy);
+    if (vx < 0) { this.angle = Math.PI - this.angle; }
     
     this.active = true;
 }
 
 Torpedo.prototype.sprite = Assets.torpedo;
-Torpedo.prototype.speed  = 0.5;
+Torpedo.prototype.speed  = 0.6;
 Torpedo.prototype.damage = 10;
 
 Torpedo.prototype.get_new_position = function(lapse) {
@@ -58,7 +59,7 @@ Torpedo.prototype.get_new_position = function(lapse) {
     this.y += this.v.y * lapse * this.speed;
     
     //create a bubble
-    Engine.projectiles.push(new Bubble(this.x, this.y, -Math.cos(angle), -Math.sin(angle)));
+    Engine.projectiles.push(new Bubble(this.x, this.y, -Math.cos(this.angle), -Math.sin(this.angle)));
     
     //despawning behaviour
     if (this.x < 0 || this.x > Engine.map_size.x) {
@@ -68,6 +69,21 @@ Torpedo.prototype.get_new_position = function(lapse) {
     if (this.y < 0 || this.y > Engine.map_size.y) {
         this.active = false;
     }
+};
+
+Torpedo.prototype.collision = function(a) {
+    a.collision(this.damage);
+    this.active = false;
+};
+
+Torpedo.prototype.draw = function(context) {
+    context.save();
+    
+    context.translate(relative.x(this.x), relative.y(this.y));
+    context.rotate(this.angle);
+    context.drawImage(this.sprite, -7.5, -3);
+    
+    context.restore();
 };
 
 /* ----------------------------------------------------------------- */
