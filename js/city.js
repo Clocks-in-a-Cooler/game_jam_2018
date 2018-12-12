@@ -16,7 +16,7 @@ var City = (
 				
 				for (let building in buildings)
 				{
-					city[building] = {number: 0, maximum: buildings[building].maximum};
+					city[building] = {number: 0, maximum: buildings[building].maximum, enabled:false};
 				}
 				
 				// create wares
