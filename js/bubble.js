@@ -42,3 +42,41 @@ Bubble.prototype.draw = function(context) {
 Bubble.prototype.collision = function() {
     //do nothing
 };
+
+/*------------------------------------------------------------------ */
+
+function Explosion_particle(x, y) {
+    this.x = x;
+    this.y = y;
+    
+    this.lifetime     = 0;
+    this.max_lifetime = Math.trunc(Math.random() * 50) + 225;
+    
+    this.active = true;
+}
+
+Explosion_particle.prototype.explode_speed = 0.25;
+
+Explosion_particle.prototype.collision = function() { /* do nothing */ };
+
+Explosion_particle.prototype.get_new_position = function(lapse) {
+    if (this.lifetime + lapse > this.max_lifetime) {
+        this.active = false;
+    } else {
+        this.lifetime += lapse;
+    }
+};
+
+Explosion_particle.prototype.draw = function(context) {
+    context.save();
+    
+    var radius = this.lifetime * this.explode_speed;
+    var alpha  = 1 - Math.pow((this.lifetime / this.max_lifetime), 4);
+    
+    context.beginPath();
+    context.arc(relative.x(this.x), relative.y(this.y), radius, 0, 2 * Math.PI);
+    context.fillStyle = "rgba(255, 99, 71, " + alpha + ")";
+    context.fill();
+    
+    context.restore();
+};
