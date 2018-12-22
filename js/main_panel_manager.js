@@ -2,7 +2,7 @@ var MPM = (
     function ()
     {
         
-        var MINING_COOLDOWN = 50;
+        var MINING_COOLDOWN = 250;
         var DEFAULT_COOLDOWN = 1000;
 		var FLOATING_TEXT_TIME = 1000;
         var DEF_PANEL = "main_panel";
@@ -172,46 +172,52 @@ var MPM = (
             // buttons
             create_button: function(button_text,button_function,button_id,button_class,tooltip)
             {
-                
-                var button_name = button_text || "";
-                var button_classList = button_class;
-                var button_element = document.createElement("div");
-                if (button_id)
-                {
-                    if (!document.getElementById(button_id))
-                    {
-                        button_element.id = button_id;
-                    }
-                }
-                else
-                {
-                    // do nothing because there is no id to set
-                }
-                if (button_class)
-                {
-                    for(let index = 0; index<button_class.length; index++)
-                    {
-                        button_element.classList.add(button_class[index]);
-                    }
-                }
-                button_element.innerHTML = button_name;
-                button_element.addEventListener("click"
-                    , 
-                    function()
-                        {
-                        // disabled
-                            if (!this.disabled)
-                            {
-                            button_function();
-                            }
-                        }
-                    );
-                Engine.log(tooltip);
-                if (tooltip)
-                {
-                    button_element.appendChild(tooltip);
-                }
-                buttons[button_id] = button_element;
+                try {
+					var button_name = button_text || "";
+					var button_classList = button_class;
+					var button_element = document.createElement("div");
+					if (button_id)
+					{
+						if (!document.getElementById(button_id))
+						{
+							button_element.id = button_id;
+						}
+					}
+					else
+					{
+						// do nothing because there is no id to set
+					}
+					if (button_class)
+					{
+						for(let index = 0; index<button_class.length; index++)
+						{
+							button_element.classList.add(button_class[index]);
+						}
+					}
+					button_element.innerHTML = button_name;
+					button_element.addEventListener("click"
+						, 
+						function()
+							{
+							// disabled
+								if (!this.disabled)
+								{
+								button_function();
+								}
+							}
+						);
+					Engine.log(tooltip);
+					if (tooltip)
+					{
+						button_element.appendChild(tooltip);
+					}
+					buttons[button_id] = button_element;
+					Engine.log(button_element);
+				}
+				catch(exception)
+				{
+					Engine.log(exception);
+				}
                 return button_element;
             },
             

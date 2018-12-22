@@ -45,7 +45,7 @@ var events = {
 						MPM.remove_element("pickup_button");
 						events["initialize_solar_panel_setup"]["event"]();
 					}
-					MPM.time_out(pickup_button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(pickup_button, MPM.DEFAULT_COOLDOWN);
 				},"pickup_button",["light_button"]);
 			MPM.append_build_panel(pickup_button);
 		}
@@ -67,7 +67,7 @@ var events = {
 				}
 				,"initialize_build_bot_button",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["minerbot"].buy())));
-			build_panel.appendChild(MPM.disable(bot_button));
+			build_panel.appendChild(bot_button);
 			build_panel.appendChild(MPM.create_button("Set it up"
 				,function()
 				{
@@ -81,7 +81,7 @@ var events = {
 						Engine.notify("That's all of them.");
 						events["initialize_mining"]["event"]();
 					}
-					MPM.time_out(bot_button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(bot_button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"initialize_solar_panel_setup_button",["light_button"]));
 		}
@@ -100,7 +100,7 @@ var events = {
 				,function()
 				{
 					City.mine_resources();
-					MPM.time_out(mine_button,MPM.MINING_COOLDOWN);
+					DOMM.time_out(mine_button,MPM.MINING_COOLDOWN);
 					
 				}
 				,"mine_button",["light_button"]);
@@ -249,7 +249,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("iron_smelter");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_iron_smelter",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["iron_smelter"].buy())));
@@ -287,7 +287,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("mining_depot");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_mining_depot",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["mining_depot"].buy())));
@@ -313,7 +313,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("solar_distiller");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_solar_distiller",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["solar_distiller"].buy())));
@@ -339,7 +339,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("helium_collector");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_helium_collector",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["helium_collector"].buy())));
@@ -366,7 +366,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("helium_fusion_plant");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN*3);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN*3);
 				}
 				,"buy_helium_fusion_plant",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["helium_fusion_plant"].buy())));
