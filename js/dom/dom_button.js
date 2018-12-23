@@ -4,3 +4,8 @@
 	@version 2018-12-22
 	https://github.com/laifrank2002
 */
+function DOMM_button()
+{
+	
+	
+}

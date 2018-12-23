@@ -17,7 +17,7 @@ var events = {
 					function()
 					{
 						Engine.notify("That's irrelevant for the moment. What you need to do is as following:");
-						MPM.remove_element("hello_button");
+						DOMM.remove_element(document.getElementById("hello_button"));
 						events["initialize_solar_panel_pickup"]["event"]();
 					},"hello_button",["light_button"]));
 			//
@@ -42,7 +42,7 @@ var events = {
 					City.add_ware("photovoltaic_panel",1);
 					if(solar_panels <= 0)
 					{
-						MPM.remove_element("pickup_button");
+						DOMM.remove_element(document.getElementById("pickup_button"));
 						events["initialize_solar_panel_setup"]["event"]();
 					}
 					DOMM.time_out(pickup_button, MPM.DEFAULT_COOLDOWN);
@@ -76,7 +76,7 @@ var events = {
 					}
 					if(!City.get_ware("photovoltaic_panel").number)
 					{
-						MPM.remove_element('initialize_solar_panel_setup_button');	
+						DOMM.remove_element(document.getElementById("initialize_solar_panel_setup_button"));	
 						Engine.notify("A little more to the right?");
 						Engine.notify("That's all of them.");
 						events["initialize_mining"]["event"]();
@@ -125,7 +125,7 @@ var events = {
 		
 		"event": function()
 		{
-			MPM.enable(MPM.get_button("initialize_build_bot_button"));
+			DOMM.enable(document.getElementById("initialize_build_bot_button"));
 			Engine.remove_trigger("initialize_bot_button");
 		}
 	},
@@ -196,7 +196,7 @@ var events = {
 						City.add_ware("silicon",-500);
 						City.add_ware("plastic",-500);
 						Engine.notify("With a bit of Engine grease and miracle work, you manage to fix the ship. Let's hope it's seaworthy.");
-						MPM.remove_element("initialize_repair_ship_button");
+						DOMM.remove_element(document.getElementById("initialize_repair_ship_button"));
 						events["initialize_explore_button"]["event"]();
 					}
 					else 

@@ -1,3 +1,11 @@
+/** 
+	A set of specific DOM actions relating to the main panel in ADR
+		TODO:
+		DESTROY THIS GOD OBJECT 
+	@author Frank Lai 2002
+	@version 2018-12-23
+	https://github.com/laifrank2002
+*/
 var MPM = (
     function ()
     {
@@ -71,15 +79,15 @@ var MPM = (
             
             hide: function()
             {
-                MPM.add_class("invisible",panel);
+                DOMM.add_class(panel,"invisible");
             },
             
             show: function()
             {
-                MPM.remove_class("invisible",panel);
+                DOMM.remove_class(panel,"invisible");
             },
             // DOM Managers
-            
+            /* DEPRECATED
             time_out: function(element,cooldown)
             {
                 if (element)
@@ -150,7 +158,7 @@ var MPM = (
 					element.classList.remove(element_class);
 				}
             },
-            
+            */
 			// floating text 
 			create_floating_text (element, message)
 			{

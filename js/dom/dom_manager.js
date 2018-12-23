@@ -1,7 +1,7 @@
 /** 
 	A set of general DOM Managers so I don't have to keep writer the same thing over and over again.
 	@author Frank Lai 2002
-	@version 2018-12-22
+	@version 2018-12-23
 	https://github.com/laifrank2002
 */
 var DOMM = {
@@ -53,20 +53,20 @@ var DOMM = {
 	{
 		if (element)
 		{
-			DOMM.remove_class("disabled",element);
+			DOMM.remove_class(element, "disabled");
 			element.disabled = false;
 		}
 		return element;
 	},
 	
 	/**
-		@param id the id of the element to remove
+		@param element the element to remove
 	 */
-	remove_element: function(id)
+	remove_element: function(element)
 	{
-		if(document.getElementById(id))
+		if(element)
 		{
-			document.getElementById(id).parentNode.removeChild(document.getElementById(id));
+			(element.parentNode).removeChild(element);
 		}
 	},
 	
@@ -105,7 +105,10 @@ var DOMM = {
 	{
 		if (element)
 		{
-			element.classList.remove(element_class);
+			if (element.classList.contains(element_class))
+			{
+				element.classList.remove(element_class);
+			}
 		}
 	},
 }
