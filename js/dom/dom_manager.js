@@ -1,5 +1,6 @@
 /** 
-	A set of general DOM Managers so I don't have to keep writer the same thing over and over again.
+	A set of general DOM Managers so I don't have to keep writing the same thing over and over again.
+	
 	@author Frank Lai 2002
 	@version 2018-12-23
 	https://github.com/laifrank2002
