@@ -73,6 +73,9 @@ Torpedo.prototype.get_new_position = function(lapse) {
 
 Torpedo.prototype.collision = function(a) {
     a.collision(this.damage);
+    
+    Engine.projectiles.push(new Explosion_particle(this.x, this.y));
+    
     this.active = false;
 };
 

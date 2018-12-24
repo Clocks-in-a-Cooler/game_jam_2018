@@ -1,8 +1,16 @@
+/** 
+	A set of specific DOM actions relating to the main panel in ADR
+		TODO:
+		DESTROY THIS GOD OBJECT 
+	@author Frank Lai 2002
+	@version 2018-12-23
+	https://github.com/laifrank2002
+*/
 var MPM = (
     function ()
     {
         
-        var MINING_COOLDOWN = 50;
+        var MINING_COOLDOWN = 250;
         var DEFAULT_COOLDOWN = 1000;
 		var FLOATING_TEXT_TIME = 1000;
         var DEF_PANEL = "main_panel";
@@ -71,86 +79,14 @@ var MPM = (
             
             hide: function()
             {
-                MPM.add_class("invisible",panel);
+                DOMM.add_class(panel,"invisible");
             },
             
             show: function()
             {
-                MPM.remove_class("invisible",panel);
+                DOMM.remove_class(panel,"invisible");
             },
             // DOM Managers
-            
-            time_out: function(element,cooldown)
-            {
-                if (element)
-                {
-                    MPM.add_class("disabled",element);
-                    element.disabled = true;
-                    setTimeout(function(){element.disabled = false;MPM.remove_class("disabled",element)},cooldown);
-                }
-                return element;
-            },
-            
-            disable: function(element)
-            {
-                if (element)
-                {
-                    MPM.add_class("disabled",element);
-                    element.disabled = true;
-                }
-                return element;
-            },
-            
-            enable: function(element)
-            {
-                if (element)
-                {
-                    MPM.remove_class("disabled",element);
-                    element.disabled = false;
-                }
-                return element;
-            },
-            
-            remove_element: function(id)
-            {
-                if(document.getElementById(id))
-                {
-                    document.getElementById(id).parentNode.removeChild(document.getElementById(id));
-                    // also auto remove from buttons array 
-                    if (buttons[id])
-                    {
-                        delete buttons[id];
-                    }
-                }
-            },
-            
-            set_id: function(id, element)
-            {
-                if (id)
-                {
-                    if (!document.getElementById(id))
-                    {
-                        element.id = id;
-                    }
-                }
-            },
-            
-            add_class: function(element_class, element)
-            {
-				if (element)
-				{
-					element.classList.add(element_class);
-				}
-            },
-            
-            remove_class: function(element_class, element)
-            {
-				if (element)
-				{
-					element.classList.remove(element_class);
-				}
-            },
-            
 			// floating text 
 			create_floating_text (element, message)
 			{
@@ -172,49 +108,10 @@ var MPM = (
             // buttons
             create_button: function(button_text,button_function,button_id,button_class,tooltip)
             {
-                
-                var button_name = button_text || "";
-                var button_classList = button_class;
-                var button_element = document.createElement("div");
-                if (button_id)
-                {
-                    if (!document.getElementById(button_id))
-                    {
-                        button_element.id = button_id;
-                    }
-                }
-                else
-                {
-                    // do nothing because there is no id to set
-                }
-                if (button_class)
-                {
-                    for(let index = 0; index<button_class.length; index++)
-                    {
-                        button_element.classList.add(button_class[index]);
-                    }
-                }
-                button_element.innerHTML = button_name;
-                button_element.addEventListener("click"
-                    , 
-                    function()
-                        {
-                        // disabled
-                            if (!this.disabled)
-                            {
-                            button_function();
-                            }
-                        }
-                    );
-                Engine.log(tooltip);
-                if (tooltip)
-                {
-                    button_element.appendChild(tooltip);
-                }
-                buttons[button_id] = button_element;
-                return button_element;
+                return DOMM_button(button_function, button_text, button_id, button_class, tooltip);
             },
             
+			/*PROCESS OF DEPRECATING*/
             get_button: function(id)
             {
                 return buttons[id];
@@ -223,6 +120,7 @@ var MPM = (
             remove_button: function(id)
             {
                 MPM.remove_element(id);
+				delete buttons[id];
             },
             
             // panels 
@@ -250,43 +148,10 @@ var MPM = (
                 return panel_element;
             },
             
-            // turns most any light weight button into a progress bar! yay!
-            set_button_progress: function()
-            {
-                
-            },
-            
-            // ends this progress. yay!
-            end_button_progress: function()
-            {
-                
-            },
             // tooltip 
-            create_tooltip: function(tooltip, tooltip_id, tooltip_class)
+            create_tooltip: function(tooltip, tooltip_id, tooltip_class = ["tooltip"])
             {
-                var tooltip_element = document.createElement("div");
-                if (tooltip_id)
-                {
-                    if (!document.getElementById(tooltip_id))
-                    {
-                        tooltip_element.id = tooltip_id;
-                    }
-                }
-                else
-                {
-                    // do nothing because there is no id to set
-                }
-                if (tooltip_class)
-                {
-                    for(let index = 0; index<tooltip_class.length; index++)
-                    {
-                        tooltip_element.classList.add(tooltip_class[index]);
-                    }
-                }
-                // auto add default class 
-                tooltip_element.classList.add("tooltip");
-                tooltip_element.innerHTML = tooltip;
-                return tooltip_element;
+                return DOMM_tooltip(tooltip, tooltip_id, tooltip_class);
             },
             
             // display

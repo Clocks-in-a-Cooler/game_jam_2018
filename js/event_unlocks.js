@@ -17,7 +17,7 @@ var events = {
 					function()
 					{
 						Engine.notify("That's irrelevant for the moment. What you need to do is as following:");
-						MPM.remove_element("hello_button");
+						DOMM.remove_element(document.getElementById("hello_button"));
 						events["initialize_solar_panel_pickup"]["event"]();
 					},"hello_button",["light_button"]));
 			//
@@ -42,10 +42,10 @@ var events = {
 					City.add_ware("photovoltaic_panel",1);
 					if(solar_panels <= 0)
 					{
-						MPM.remove_element("pickup_button");
+						DOMM.remove_element(document.getElementById("pickup_button"));
 						events["initialize_solar_panel_setup"]["event"]();
 					}
-					MPM.time_out(pickup_button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(pickup_button, MPM.DEFAULT_COOLDOWN);
 				},"pickup_button",["light_button"]);
 			MPM.append_build_panel(pickup_button);
 		}
@@ -67,7 +67,7 @@ var events = {
 				}
 				,"initialize_build_bot_button",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["minerbot"].buy())));
-			build_panel.appendChild(MPM.disable(bot_button));
+			build_panel.appendChild(bot_button);
 			build_panel.appendChild(MPM.create_button("Set it up"
 				,function()
 				{
@@ -76,12 +76,12 @@ var events = {
 					}
 					if(!City.get_ware("photovoltaic_panel").number)
 					{
-						MPM.remove_element('initialize_solar_panel_setup_button');	
+						DOMM.remove_element(document.getElementById("initialize_solar_panel_setup_button"));	
 						Engine.notify("A little more to the right?");
 						Engine.notify("That's all of them.");
 						events["initialize_mining"]["event"]();
 					}
-					MPM.time_out(bot_button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(bot_button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"initialize_solar_panel_setup_button",["light_button"]));
 		}
@@ -100,7 +100,7 @@ var events = {
 				,function()
 				{
 					City.mine_resources();
-					MPM.time_out(mine_button,MPM.MINING_COOLDOWN);
+					DOMM.time_out(mine_button,MPM.MINING_COOLDOWN);
 					
 				}
 				,"mine_button",["light_button"]);
@@ -125,7 +125,7 @@ var events = {
 		
 		"event": function()
 		{
-			MPM.enable(MPM.get_button("initialize_build_bot_button"));
+			DOMM.enable(document.getElementById("initialize_build_bot_button"));
 			Engine.remove_trigger("initialize_bot_button");
 		}
 	},
@@ -177,7 +177,7 @@ var events = {
 	{
 		"trigger": function()
 		{
-			if (City.get_ware("decinium").number>=10)
+			if (City.get_ware("battery").number>=10)
 			{
 				return true;
 			}
@@ -189,16 +189,14 @@ var events = {
 			build_panel.appendChild(MPM.create_button("Repair ship"
 				,function()
 				{
-					if (City.get_ware("crovanite").number >= 10000 && City.get_ware("decinium").number >= 3000 && City.get_ware("battery").number >= 100 && City.get_ware("iron").number >= 2000 && City.get_ware("silicon").number >= 5000 && City.get_ware("plastic").number >= 5000 )
+					if (City.get_ware("crovanite").number >= 1000 && City.get_ware("battery").number >= 100 && City.get_ware("silicon").number >= 500 && City.get_ware("plastic").number >= 500 )
 					{
-						City.add_ware("crovanite",-10000);
-						City.add_ware("decinium",-3000);
+						City.add_ware("crovanite",-1000);
 						City.add_ware("battery",-100);
-						City.add_ware("iron",-2000);
-						City.add_ware("silicon",-5000);
-						City.add_ware("plastic",-5000);
+						City.add_ware("silicon",-500);
+						City.add_ware("plastic",-500);
 						Engine.notify("With a bit of Engine grease and miracle work, you manage to fix the ship. Let's hope it's seaworthy.");
-						MPM.remove_element("initialize_repair_ship_button");
+						DOMM.remove_element(document.getElementById("initialize_repair_ship_button"));
 						events["initialize_explore_button"]["event"]();
 					}
 					else 
@@ -207,7 +205,7 @@ var events = {
 					}
 				}
 				,"initialize_repair_ship_button",["light_button"]
-				,MPM.create_tooltip("10000 crovanite 3000 decinium, 100 batteries, 2000 iron, 5000 silicon, 5000 plastic")));
+				,MPM.create_tooltip("1000 crovanite, 100 batteries, 500 silicon, 500 plastic")));
 			
 			Engine.remove_trigger("initialize_repair_ship_button");
 			Engine.notify("The mysterious robot returns, and guides you to a dark place you've not seen before. There is a ship here, and you want to repair it.");
@@ -251,7 +249,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("iron_smelter");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_iron_smelter",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["iron_smelter"].buy())));
@@ -289,7 +287,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("mining_depot");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_mining_depot",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["mining_depot"].buy())));
@@ -315,7 +313,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("solar_distiller");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_solar_distiller",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["solar_distiller"].buy())));
@@ -341,7 +339,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("helium_collector");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN);
 				}
 				,"buy_helium_collector",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["helium_collector"].buy())));
@@ -368,7 +366,7 @@ var events = {
 				,function()
 				{
 					City.buy_building("helium_fusion_plant");
-					MPM.time_out(button, MPM.DEFAULT_COOLDOWN*3);
+					DOMM.time_out(button, MPM.DEFAULT_COOLDOWN*3);
 				}
 				,"buy_helium_fusion_plant",["light_button"]
 				,MPM.create_tooltip(JSON.stringify(buildings["helium_fusion_plant"].buy())));

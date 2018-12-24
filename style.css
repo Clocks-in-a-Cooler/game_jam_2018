@@ -59,14 +59,14 @@ div.tooltip
     display: none;
     padding: 2px 5px;
     border: 1px solid white;
-    position: relative;
+    position: absolute;
     box-shadow: -1px 1px 5px #FFFFFF;
     background: black;
     z-index: 999;
     width: 350px;
     
-    left:30px;
-    
+    left:150px;
+    text-decoration: none;
 }
 
 .tooltip.bottom
@@ -127,7 +127,6 @@ div.tooltip:hover
 }
 .light_button:hover
 {
-    text-decoration-line: underline;
 	background-color: #10009F;
 }
 
