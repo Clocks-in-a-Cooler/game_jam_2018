@@ -1,10 +1,11 @@
 var AudioSystem = {
 	function() {
 		var trackList = [];
-		trackList[0] = var menuTheme = document.getElementById("menuTrack");
-		trackList[1] = var explore = document.getElementById("exploreTrack");
-		trackList[2] = var dysonDiscovery = document.getElementById("dysonDiscoveryTrack");
+		trackList.push(document.getElementById("menuTrack"));
+		trackList.push(document.getElementById("exploreTrack"));
+		trackList.push(document.getElementById("dysonDiscoveryTrack"));
 		//trackList[3] = var cityBuilding = document.getElementById("paperworkTrack");
+		var currentTrack;
 		return {
 			sleep: function(ms) {
 				return new Promise(resolve => setTimeout(resolve, ms));
@@ -12,8 +13,12 @@ var AudioSystem = {
 			playSingleTrack: function(soundTrack) {
 				soundTrack.play();
 			},
-			playAllTracks: function() {
-				
+			playAllTracks: async function() {
+				trackList.forEach(function(soundTrack) {
+					playSingleTrack(soundTrack);
+					currentTrack = soundTrack;
+					await sleep(soundTrack.duration);
+				});
 			},
 			pauseSingleTrack: async function(soundTrack) {
 				for (let i = 100; i >= 0; --i) {
